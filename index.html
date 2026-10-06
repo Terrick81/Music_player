@@ -32,7 +32,6 @@
     <div class="mini-inner">
       <div class="mini-details" id="open-player">
         <div class="mini-title" id="mini-title"></div>
-        <div class="mini-artist" id="mini-artist"></div>
       </div>
       <button class="play-button" id="mini-play" aria-label="Воспроизвести">▶</button>
     </div>
@@ -48,7 +47,6 @@
 
       <img class="big-cover" id="big-cover" alt="Обложка плейлиста">
       <h2 class="full-title" id="full-title"></h2>
-      <div class="full-artist" id="full-artist"></div>
 
       <div class="full-controls">
         <button class="play-button" id="full-play" aria-label="Воспроизвести">▶</button>
@@ -86,8 +84,8 @@
       playlist = data;
       document.title = data.title;
       $("#playlist-title").textContent = data.title;
-      $("#cover").src = data.cover;
-      $("#big-cover").src = data.cover;
+      setImage($("#cover"), data.cover);
+      setImage($("#big-cover"), data.cover);
       $("#track-count").textContent =
         `${data.tracks.length} ${data.tracks.length === 1 ? "трек" : "треков"}`;
 
@@ -107,23 +105,37 @@
         for (const track of data.tracks.filter(item => item.year === year)) {
           number++;
           const row = document.createElement("button");
-          row.className = "track";
-          row.type = "button";
-          row.innerHTML = `
-            <span class="track-number">${number}</span>
-            <span class="track-info">
-              <span class="track-title"></span>
-              <span class="track-artist"></span>
-            </span>
-            ${track.video ? '<span class="video-badge" title="Есть клип" aria-label="Есть клип">▶</span>' : ""}
-          `;
-          row.querySelector(".track-title").textContent = track.title;
-          row.querySelector(".track-artist").textContent = track.artist;
-          row.addEventListener("click", () => selectTrack(track));
-          list.append(row);
+           row.className = "track";
+           row.type = "button";
+           row.innerHTML = `
+           <span class="track-number">${number}</span>
+           <img class="track-cover" alt="">
+           <span class="track-info">
+            <span class="track-title"></span>
+           </span>
+           ${track.video
+           ? '<span class="video-badge" title="Есть клип" aria-label="Есть клип">▶</span>'
+    : ""}
+`;
+
+row.querySelector(".track-title").textContent = track.title;
+setImage(row.querySelector(".track-cover"), track.cover || data.cover);
+row.addEventListener("click", () => selectTrack(track));
+list.append(row);
         }
       }
     }
+
+    function setImage(img, path) {
+  img.onerror = () => {
+    img.removeAttribute("src");
+    img.classList.add("image-missing");
+  };
+
+  img.classList.remove("image-missing");
+  img.src = new URL(path, document.baseURI).href;
+}
+
 
     function selectTrack(track) {
       currentTrack = track;
@@ -136,9 +148,7 @@
       audio.load();
 
       $("#mini-title").textContent = track.title;
-      $("#mini-artist").textContent = track.artist;
       $("#full-title").textContent = track.title;
-      $("#full-artist").textContent = track.artist;
       $("#lyrics").textContent = track.lyrics || "Текст песни пока не добавлен.";
 
       const videoButton = $("#video-toggle");
