@@ -73,12 +73,21 @@
 
     const $ = (selector) => document.querySelector(selector);
 
-    function setPlayButtons(playing) {
-      $("#mini-play").textContent = playing ? "Ⅱ" : "▶";
-      $("#full-play").textContent = playing ? "Ⅱ" : "▶";
-      $("#mini-play").setAttribute("aria-label", playing ? "Пауза" : "Воспроизвести");
-      $("#full-play").setAttribute("aria-label", playing ? "Пауза" : "Воспроизвести");
-    }
+const icons = {
+  play: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.8c0-.8.9-1.3 1.6-.9l10 6.2a1 1 0 0 1 0 1.8l-10 6.2c-.7.4-1.6-.1-1.6-.9V5.8Z"/></svg>`,
+  pause: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5.5A1.5 1.5 0 0 1 8.5 4h1A1.5 1.5 0 0 1 11 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-1A1.5 1.5 0 0 1 7 18.5v-13Zm6 0A1.5 1.5 0 0 1 14.5 4h1A1.5 1.5 0 0 1 17 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5v-13Z"/></svg>`,
+  video: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="12" height="12" rx="3"/><path d="m15 10 5-3v10l-5-3"/></svg>`
+};
+
+function setPlayButtons(playing) {
+  const icon = playing ? icons.pause : icons.play;
+
+  $("#mini-play").innerHTML = icon;
+  $("#full-play").innerHTML = icon;
+
+  $("#mini-play").setAttribute("aria-label", playing ? "Пауза" : "Воспроизвести");
+  $("#full-play").setAttribute("aria-label", playing ? "Пауза" : "Воспроизвести");
+}
 
     function renderPlaylist(data) {
       playlist = data;
@@ -114,8 +123,8 @@
             <span class="track-title"></span>
            </span>
            ${track.video
-           ? '<span class="video-badge" title="Есть клип" aria-label="Есть клип">▶</span>'
-    : ""}
+  ? `<span class="video-badge" title="Есть клип" aria-label="Есть клип">${icons.video}</span>`
+  : ""}
 `;
 
 row.querySelector(".track-title").textContent = track.title;

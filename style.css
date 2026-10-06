@@ -343,3 +343,244 @@ h1 {
     transform: translateX(3px);
   }
 }
+
+/* --- Свежая полировка интерфейса --- */
+
+:root {
+  --accent: #c7f477;
+  --bg: #0c0d0f;
+  --panel: #191b1f;
+  --panel-hover: #22252a;
+  --muted: #969aa3;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.page {
+  width: min(100% - 36px, 820px);
+  padding-top: max(30px, env(safe-area-inset-top));
+}
+
+.playlist-header {
+  gap: 22px;
+  margin-bottom: 38px;
+}
+
+.cover {
+  border-radius: 22px;
+  box-shadow: 0 20px 60px #0009;
+}
+
+h1 {
+  letter-spacing: -.045em;
+}
+
+.year-heading {
+  margin: 32px 0 12px;
+  font-size: 22px;
+  letter-spacing: -.035em;
+}
+
+.track {
+  min-height: 74px;
+  padding: 10px 12px;
+  border-radius: 15px;
+  transition: background .2s ease, transform .2s ease;
+}
+
+.track:hover {
+  background: #ffffff0a;
+}
+
+.track:active {
+  transform: scale(.985);
+}
+
+.track-cover {
+  border-radius: 12px;
+}
+
+.track-title {
+  font-size: 15px;
+  letter-spacing: -.01em;
+}
+
+/* Значок клипа */
+.video-badge {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  border: 1px solid #c7f47730;
+  border-radius: 12px;
+  background: #c7f47712;
+  color: var(--accent);
+}
+
+.video-badge svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Мини-плеер: прогресс находится внутри нижней карточки */
+.mini-player {
+  right: 12px;
+  bottom: calc(12px + env(safe-area-inset-bottom));
+  left: 12px;
+  padding: 12px 14px 17px;
+  border: 1px solid #ffffff12;
+  border-radius: 19px;
+  background: rgb(30 31 34 / 94%);
+  box-shadow: 0 12px 40px #0008;
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+.mini-inner {
+  gap: 14px;
+}
+
+.mini-title {
+  font-size: 14px;
+  letter-spacing: -.01em;
+}
+
+.play-button {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #151711;
+  box-shadow: 0 3px 14px #c7f47730;
+  cursor: pointer;
+  transition: transform .15s ease, filter .15s ease;
+}
+
+.play-button:active {
+  transform: scale(.92);
+}
+
+.play-button svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* Аккуратная полоса прогресса — внизу карточки, без выступа сверху */
+.progress {
+  position: absolute;
+  right: 14px;
+  bottom: 5px;
+  left: 14px;
+  width: calc(100% - 28px);
+  height: 4px;
+  margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  background: transparent;
+}
+
+.progress::-webkit-slider-runnable-track {
+  height: 3px;
+  border-radius: 99px;
+  background: #ffffff24;
+}
+
+.progress::-moz-range-track {
+  height: 3px;
+  border-radius: 99px;
+  background: #ffffff24;
+}
+
+.progress::-webkit-slider-thumb {
+  width: 9px;
+  height: 9px;
+  margin-top: -3px;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.progress::-moz-range-thumb {
+  width: 9px;
+  height: 9px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* Полноэкранный плеер */
+.player-screen {
+  background:
+    radial-gradient(ellipse at 50% 0%, #333343 0, transparent 48%),
+    #101113;
+}
+
+.big-cover {
+  border-radius: 24px;
+  box-shadow: 0 24px 70px #000a;
+}
+
+.full-title {
+  letter-spacing: -.035em;
+}
+
+.full-controls .play-button {
+  width: 66px;
+  height: 66px;
+  flex-basis: 66px;
+}
+
+.full-controls .play-button svg {
+  width: 26px;
+  height: 26px;
+}
+
+.screen-top button,
+.video-toggle {
+  border: 1px solid #ffffff12;
+  background: #ffffff0c;
+  transition: background .18s ease;
+}
+
+.screen-top button:active,
+.video-toggle:active {
+  background: #ffffff1a;
+}
+
+@media (min-width: 700px) {
+  .mini-player {
+    right: 24px;
+    bottom: 20px;
+    left: 24px;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+
+  .track:hover {
+    transform: translateX(2px);
+  }
+}
