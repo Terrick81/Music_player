@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101010">
+  <title>Мой плейлист</title>
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #101010;
+      --panel: #1b1b1b;
+      --muted: #a4a4a4;
+      --accent: #b8f36b;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0 0 calc(92px + env(safe-area-inset-bottom));
+      background: var(--bg);
+      color: #fff;
+      font: 16px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    button { font: inherit; }
+
+    .page {
+      width: min(100% - 32px, 850px);
+      margin: 0 auto;
+      padding-top: 28px;
+    }
+
+    .playlist-header {
+      display: flex;
+      align-items: end;
+      gap: 22px;
+      margin-bottom: 34px;
+    }
+
+    .cover {
+      width: clamp(120px, 36vw, 220px);
+      aspect-ratio: 1;
+      border-radius: 12px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #5946a8, #df7b5f);
+      box-shadow: 0 12px 40px #0008;
+    }
+
+    .eyebrow {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(26px, 7vw, 46px);
+      line-height: 1.08;
+      overflow-wrap: anywhere;
+    }
+
+    .track-count {
+      color: var(--muted);
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .year-heading {
+      margin: 30px 0 8px;
+      font-size: 21px;
+    }
+
+    .track {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-height: 68px;
+      padding: 10px 12px;
+      border: 0;
+      border-radius: 10px;
+      color: inherit;
+      text-align: left;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .track:hover, .track:focus-visible { background: #ffffff0d; }
+
+    .track-number {
+      width: 24px;
+      color: var(--muted);
+      text-align: center;
+      flex: 0 0 24px;
+    }
+
+    .track-info { min-width: 0; flex: 1; }
+    .track-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+
+    .track-artist {
+      color: var(--muted);
+      font-size: 14px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .video-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #ffffff12;
+      color: var(--accent);
+      flex: 0 0 28px;
+      font-size: 13px;
+    }
+
+    /* Компактный плеер внизу экрана */
+    .mini-player {
+      position: fixed;
+      z-index: 5;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+      background: #252525f5;
+      border-top: 1px solid #ffffff16;
+      backdrop-filter: blur(18px);
+    }
+
+    .mini-inner {
+      width: min(100%, 850px);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mini-details {
+      min-width: 0;
+      flex: 1;
+      cursor: pointer;
+    }
+
+    .mini-title, .mini-artist {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .mini-title { font-weight: 600; }
+    .mini-artist { color: var(--muted); font-size: 13px; }
+
+    .play-button {
+      width: 44px;
+      height: 44px;
+      flex: 0 0 44px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #151515;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .progress {
+      position: absolute;
+      top: -2px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .progress::-webkit-slider-thumb { opacity: 0; }
+
+    /* Полноэкранный экран трека */
+    .player-screen {
+      position: fixed;
+      z-index: 10;
+      inset: 0;
+      display: none;
+      overflow-y: auto;
+      padding: max(18px, env(safe-area-inset-top)) 20px
+               calc(28px + env(safe-area-inset-bottom));
+      background:
+        radial-gradient(ellipse at 50% 0%, #303044, transparent 55%),
+        #111;
+    }
+
+    .player-screen.open { display: block; }
+
+    .player-content {
+      width: min(100%, 720px);
+      margin: 0 auto;
+    }
+
+    .screen-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .screen-top button, .video-toggle {
+      border: 0;
+      border-radius: 22px;
+      background: #ffffff16;
+      color: #fff;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+
+    .now-playing {
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .big-cover {
+      display: block;
+      width: min(74vw, 360px);
+      aspect-ratio: 1;
+      margin: 18px auto 24px;
+      border-radius: 14px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #5946a8, #df7b5f);
+      box-shadow: 0 16px 55px #0009;
+    }
+
+    .full-title {
+      margin: 0;
+      text-align: center;
+      font-size: clamp(24px, 6vw, 36px);
+    }
+
+    .full-artist {
+      margin: 5px 0 20px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .full-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      margin: 18px 0 26px;
+    }
+
+    .full-controls .play-button {
+      width: 58px;
+      height: 58px;
+      flex-basis: 58px;
+      font-size: 23px;
+    }
+
+    .video-toggle { display: block; margin: 0 auto 18px; }
+
+    .video-wrap {
+      display: none;
+      margin: 0 auto 22px;
+      overflow: hidden;
+      border-radius: 12px;
+      background: #000;
+    }
+
+    .video-wrap.visible { display: block; }
+
+    .video-wrap video {
+      display: block;
+      width: 100%;
+      max-height: 52vh;
+      background: #000;
+    }
+
+    .lyrics-heading { margin: 20px 0 10px; font-size: 20px; }
+    .lyrics {
+      color: #e5e5e5;
+      white-space: pre-wrap;
+      line-height: 1.8;
+    }
+
+    .empty { color: var(--muted); }
+
+    @media (min-width: 700px) {
+      .page { padding-top: 42px; }
+      .playlist-header { margin-bottom: 42px; }
+      .track { min-height: 62px; }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <header class="playlist-header">
+      <img class="cover" id="cover" alt="Обложка плейлиста">
+      <div>
+        <div class="eyebrow">Плейлист</div>
+        <h1 id="playlist-title">Загрузка…</h1>
+        <div class="track-count" id="track-count"></div>
+      </div>
+    </header>
+
+    <section id="track-list" aria-label="Список треков"></section>
+    <p class="empty" id="error-message"></p>
+  </main>
+
+  <audio id="audio" preload="metadata"></audio>
+
+  <aside class="mini-player" id="mini-player" hidden>
+    <input class="progress" id="progress" type="range" min="0" max="1000" value="0"
+           aria-label="Позиция воспроизведения">
+    <div class="mini-inner">
+      <div class="mini-details" id="open-player">
+        <div class="mini-title" id="mini-title"></div>
+        <div class="mini-artist" id="mini-artist"></div>
+      </div>
+      <button class="play-button" id="mini-play" aria-label="Воспроизвести">▶</button>
+    </div>
+  </aside>
+
+  <section class="player-screen" id="player-screen" aria-label="Плеер">
+    <div class="player-content">
+      <div class="screen-top">
+        <button id="close-player">↓ Закрыть</button>
+        <span class="now-playing">СЕЙЧАС ИГРАЕТ</span>
+        <span aria-hidden="true" style="width:75px"></span>
+      </div>
+
+      <img class="big-cover" id="big-cover" alt="Обложка плейлиста">
+      <h2 class="full-title" id="full-title"></h2>
+      <div class="full-artist" id="full-artist"></div>
+
+      <div class="full-controls">
+        <button class="play-button" id="full-play" aria-label="Воспроизвести">▶</button>
+      </div>
+
+      <button class="video-toggle" id="video-toggle" hidden>▶ Смотреть клип</button>
+      <div class="video-wrap" id="video-wrap">
+        <video id="video" controls playsinline preload="metadata"></video>
+      </div>
+
+      <h3 class="lyrics-heading">Текст песни</h3>
+      <div class="lyrics" id="lyrics"></div>
+    </div>
+  </section>
+
+  <script>
+    const audio = document.querySelector("#audio");
+    const video = document.querySelector("#video");
+    const miniPlayer = document.querySelector("#mini-player");
+    const playerScreen = document.querySelector("#player-screen");
+
+    let playlist;
+    let currentTrack = null;
+
+    const $ = (selector) => document.querySelector(selector);
+
+    function setPlayButtons(playing) {
+      $("#mini-play").textContent = playing ? "Ⅱ" : "▶";
+      $("#full-play").textContent = playing ? "Ⅱ" : "▶";
+      $("#mini-play").setAttribute("aria-label", playing ? "Пауза" : "Воспроизвести");
+      $("#full-play").setAttribute("aria-label", playing ? "Пауза" : "Воспроизвести");
+    }
+
+    function renderPlaylist(data) {
+      playlist = data;
+      document.title = data.title;
+      $("#playlist-title").textContent = data.title;
+      $("#cover").src = data.cover;
+      $("#big-cover").src = data.cover;
+      $("#track-count").textContent =
+        `${data.tracks.length} ${data.tracks.length === 1 ? "трек" : "треков"}`;
+
+      const years = [...new Set(data.tracks.map(track => track.year))]
+        .sort((a, b) => b - a);
+
+      const list = $("#track-list");
+      list.replaceChildren();
+
+      let number = 0;
+      for (const year of years) {
+        const heading = document.createElement("h2");
+        heading.className = "year-heading";
+        heading.textContent = year;
+        list.append(heading);
+
+        for (const track of data.tracks.filter(item => item.year === year)) {
+          number++;
+          const row = document.createElement("button");
+          row.className = "track";
+          row.type = "button";
+          row.innerHTML = `
+            <span class="track-number">${number}</span>
+            <span class="track-info">
+              <span class="track-title"></span>
+              <span class="track-artist"></span>
+            </span>
+            ${track.video ? '<span class="video-badge" title="Есть клип" aria-label="Есть клип">▶</span>' : ""}
+          `;
+          row.querySelector(".track-title").textContent = track.title;
+          row.querySelector(".track-artist").textContent = track.artist;
+          row.addEventListener("click", () => selectTrack(track));
+          list.append(row);
+        }
+      }
+    }
+
+    function selectTrack(track) {
+      currentTrack = track;
+      video.pause();
+      video.removeAttribute("src");
+      video.load();
+      $("#video-wrap").classList.remove("visible");
+
+      audio.src = track.audio;
+      audio.load();
+
+      $("#mini-title").textContent = track.title;
+      $("#mini-artist").textContent = track.artist;
+      $("#full-title").textContent = track.title;
+      $("#full-artist").textContent = track.artist;
+      $("#lyrics").textContent = track.lyrics || "Текст песни пока не добавлен.";
+
+      const videoButton = $("#video-toggle");
+      videoButton.hidden = !track.video;
+      miniPlayer.hidden = false;
+
+      audio.play().then(() => setPlayButtons(true)).catch(() => setPlayButtons(false));
+    }
+
+    function toggleAudio() {
+      if (!currentTrack) return;
+      if (audio.paused) {
+        video.pause();
+        audio.play().catch(() => {});
+      } else {
+        audio.pause();
+      }
+    }
+
+    $("#mini-play").addEventListener("click", toggleAudio);
+    $("#full-play").addEventListener("click", toggleAudio);
+    $("#open-player").addEventListener("click", () => {
+      if (currentTrack) playerScreen.classList.add("open");
+    });
+    $("#close-player").addEventListener("click", () => {
+      playerScreen.classList.remove("open");
+      video.pause();
+    });
+
+    $("#video-toggle").addEventListener("click", () => {
+      if (!currentTrack?.video) return;
+
+      audio.pause();
+      video.src = currentTrack.video;
+      video.load();
+      $("#video-wrap").classList.add("visible");
+      video.play().catch(() => {});
+      $("#video-wrap").scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+
+    audio.addEventListener("play", () => setPlayButtons(true));
+    audio.addEventListener("pause", () => setPlayButtons(false));
+    audio.addEventListener("ended", () => setPlayButtons(false));
+
+    video.addEventListener("play", () => setPlayButtons(false));
+
+    audio.addEventListener("timeupdate", () => {
+      if (audio.duration) {
+        $("#progress").value = Math.round(audio.currentTime / audio.duration * 1000);
+      }
+    });
+
+    $("#progress").addEventListener("input", event => {
+      if (audio.duration) {
+        audio.currentTime = Number(event.target.value) / 1000 * audio.duration;
+      }
+    });
+
+    fetch("playlist.json")
+      .then(response => {
+        if (!response.ok) throw new Error("Не удалось загрузить playlist.json");
+        return response.json();
+      })
+      .then(renderPlaylist)
+      .catch(error => {
+        $("#playlist-title").textContent = "Не удалось загрузить плейлист";
+        $("#error-message").textContent =
+          error.message + ". Проверь, что playlist.json находится рядом с index.html.";
+      });
+  </script>
+</body>
+</html>
