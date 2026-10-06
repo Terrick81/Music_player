@@ -11,5 +11,165 @@
       "cover": "images/demo-cover.jpg",
       "lyrics": "Текст песни..."
     }
+    {
+  "title": "Мой плейлист",
+  "cover": "cover.jpg",
+  "tracks": [
+    {
+      "id": "track-2019",
+      "title": "Трек",
+      "year": 2019,
+      "audio": "music_tracks/2019.mp3",
+      "lyrics": ""
+    },
+    {
+      "id": "cba-family-2020",
+      "title": "СВА — семья",
+      "year": 2020,
+      "audio": "music_tracks/2020 СВА - семья 2020.mp3",
+      "lyrics": ""
+    },
+    {
+      "id": "directors-2021",
+      "title": "Клип директоров",
+      "year": 2021,
+      "audio": "music_tracks/2021 Клип директоров2021.mp3",
+      "lyrics": ""
+    },
+    {
+      "id": "cba-family-2021",
+      "title": "СВА — семья",
+      "year": 2021,
+      "audio": "music_tracks/2021 СВА - семья 2021.mp3",
+      "lyrics": ""
+    },
+    {
+      "id": "strategy-2023",
+      "title": "Стратсессия СВА 90 лет",
+      "year": 2023,
+      "audio": "music_tracks/2023 Стратсессия СВА 90 лет.mp3",
+      "lyrics": ""
+    },
+    {
+      "id": "liga-2024",
+      "title": "Лига СВА",
+      "year": 2024,
+      "audio": "music_tracks/2024 Итоги 2024_Лига СВА_media139.mp3",
+      "lyrics": ""
+    },
+    {
+      "id": "team-forward-2024",
+      "title": "Команда вперёд",
+      "year": 2024,
+      "audio": "music_tracks/2024 Итоги 2024_Команда вперед_media5.mp3",
+      "lyrics": ""
+    },
+    {
+      "id": "uva-2024",
+      "title": "УВА",
+      "year": 2024,
+      "audio": "music_tracks/2024 Итоги 2024_УВА_УВА_media48.mp3",
+      "lyrics": ""
+    },
+    {
+      "id": "pirates-1-2025",
+      "title": "Пираты 1",
+      "year": 2025,
+      "audio": "music_tracks/2025 Итоги 2025_Пираты 1_media88.MP3",
+      "lyrics": ""
+    },
+    {
+      "id": "pirates-2025",
+      "title": "Пираты",
+      "year": 2025,
+      "audio": "music_tracks/2025 Итоги 2025_Пираты_media6.mp3",
+      "lyrics": ""
+    },
+    {
+      "id": "trailer-2025",
+      "title": "Предролик",
+      "year": 2025,
+      "audio": "music_tracks/2025 Итоги 2025_предролик_media3.mp3",
+      "lyrics": ""
+    },
+    {
+      "id": "cba-2025",
+      "title": "СВА",
+      "year": 2025,
+      "audio": "music_tracks/2025 Итоги 2025_СВА_media62.mp3",
+      "lyrics": ""
+    },
+    {
+      "id": "final-cc-2026",
+      "title": "Итоговая СС",
+      "year": 2026,
+      "audio": "music_tracks/2026 Итоговая_СС 2026.mp3",
+      "lyrics": ""
+    },
+    {
+      "id": "gather-cc-2026",
+      "title": "Собрать СС",
+      "year": 2026,
+      "audio": "music_tracks/2026 собрать_СС2026.MP3",
+      "lyrics": ""
+    },
+    {
+      "id": "choir-cc-2026",
+      "title": "Хор СС",
+      "year": 2026,
+      "audio": "music_tracks/2026 хор СС 2026.mp3",
+      "lyrics": ""
+    },
+    {
+      "id": "moment-clip",
+      "title": "Клип в моменте 4",
+      "year": null,
+      "audio": "music_tracks/new!!!Клип в моменте4 (1).mp3",
+      "lyrics": ""
+    },
+    {
+      "id": "uno-credits",
+      "title": "UNO с титрами",
+      "year": null,
+      "audio": "music_tracks/UNO с титрами.mp3",
+      "lyrics": ""
+    },
+    {
+      "id": "final-clip",
+      "title": "Итоговый клип в ЦА",
+      "year": null,
+      "audio": "music_tracks/Итоговый клип в ЦА.mp3",
+      "lyrics": ""
+    },
+    {
+      "id": "directors-clip",
+      "title": "Клип директоров",
+      "year": null,
+      "audio": "music_tracks/Клип директоров.mp3",
+      "lyrics": ""
+    },
+    {
+      "id": "song-clip",
+      "title": "Песня — клип",
+      "year": null,
+      "audio": "music_tracks/Песня_клип.mp3",
+      "lyrics": ""
+    },
+    {
+      "id": "cba-family-two-minutes",
+      "title": "СВА семья — две минуты",
+      "year": null,
+      "audio": "music_tracks/СВА семья - две минуты.mp3",
+      "lyrics": ""
+    },
+    {
+      "id": "uva-favorite",
+      "title": "УВА — любимка 9 (обычная версия)",
+      "year": null,
+      "audio": "music_tracks/УВА_любимка_9_ОБЫЧНАЯ ВЕРСИЯ.mp3",
+      "lyrics": ""
+    }
+  ]
+}
   ]
 }
