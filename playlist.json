@@ -5,11 +5,11 @@
     {
       "id": "demo",
       "title": "Название песни",
-      "artist": "Исполнитель",
       "year": 2024,
       "audio": "music_tracks/demo.mp3",
       "video": "videos/demo.mp4",
-      "lyrics": "Здесь будет текст песни.\n\nНовый абзац — через пустую строку."
+      "cover": "images/demo-cover.jpg",
+      "lyrics": "Текст песни..."
     }
   ]
 }
