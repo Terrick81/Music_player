@@ -7,6 +7,7 @@
       "title": "Трек",
       "year": 2019,
       "audio": "music_tracks/2019.mp3",
+      "cover": "images/demo-cover.jpg",
       "lyrics": ""
     },
     {
@@ -14,6 +15,7 @@
       "title": "СВА — семья",
       "year": 2020,
       "audio": "music_tracks/2020 СВА - семья 2020.mp3",
+      "cover": "images/demo-cover.jpg",
       "lyrics": ""
     },
     {
@@ -21,6 +23,7 @@
       "title": "Клип директоров",
       "year": 2021,
       "audio": "music_tracks/2021 Клип директоров2021.mp3",
+      "cover": "images/demo-cover.jpg",
       "lyrics": ""
     },
     {
@@ -28,6 +31,7 @@
       "title": "СВА — семья",
       "year": 2021,
       "audio": "music_tracks/2021 СВА - семья 2021.mp3",
+      "cover": "images/demo-cover.jpg",
       "lyrics": ""
     },
     {
@@ -35,6 +39,7 @@
       "title": "Стратсессия СВА 90 лет",
       "year": 2023,
       "audio": "music_tracks/2023 Стратсессия СВА 90 лет.mp3",
+      "cover": "images/demo-cover.jpg",
       "lyrics": ""
     },
     {
@@ -42,6 +47,7 @@
       "title": "Лига СВА",
       "year": 2024,
       "audio": "music_tracks/2024 Итоги 2024_Лига СВА_media139.mp3",
+      "cover": "images/demo-cover.jpg",
       "lyrics": ""
     },
     {
@@ -49,6 +55,7 @@
       "title": "Команда вперёд",
       "year": 2024,
       "audio": "music_tracks/2024 Итоги 2024_Команда вперед_media5.mp3",
+      "cover": "images/demo-cover.jpg",
       "lyrics": ""
     },
     {
@@ -56,6 +63,7 @@
       "title": "УВА",
       "year": 2024,
       "audio": "music_tracks/2024 Итоги 2024_УВА_УВА_media48.mp3",
+      "cover": "images/demo-cover.jpg",
       "lyrics": ""
     },
     {
@@ -63,6 +71,7 @@
       "title": "Пираты 1",
       "year": 2025,
       "audio": "music_tracks/2025 Итоги 2025_Пираты 1_media88.MP3",
+      "cover": "images/demo-cover.jpg",
       "lyrics": ""
     },
     {
@@ -70,6 +79,7 @@
       "title": "Пираты",
       "year": 2025,
       "audio": "music_tracks/2025 Итоги 2025_Пираты_media6.mp3",
+      "cover": "images/demo-cover.jpg",
       "lyrics": ""
     },
     {
@@ -77,6 +87,7 @@
       "title": "Предролик",
       "year": 2025,
       "audio": "music_tracks/2025 Итоги 2025_предролик_media3.mp3",
+      "cover": "images/demo-cover.jpg",
       "lyrics": ""
     },
     {
@@ -84,6 +95,7 @@
       "title": "СВА",
       "year": 2025,
       "audio": "music_tracks/2025 Итоги 2025_СВА_media62.mp3",
+      "cover": "images/demo-cover.jpg",
       "lyrics": ""
     },
     {
@@ -91,6 +103,7 @@
       "title": "Итоговая СС",
       "year": 2026,
       "audio": "music_tracks/2026 Итоговая_СС 2026.mp3",
+      "cover": "images/demo-cover.jpg",
       "lyrics": ""
     },
     {
@@ -98,6 +111,7 @@
       "title": "Собрать СС",
       "year": 2026,
       "audio": "music_tracks/2026 собрать_СС2026.MP3",
+      "cover": "images/demo-cover.jpg",
       "lyrics": ""
     },
     {
@@ -105,6 +119,7 @@
       "title": "Хор СС",
       "year": 2026,
       "audio": "music_tracks/2026 хор СС 2026.mp3",
+      "cover": "images/demo-cover.jpg",
       "lyrics": ""
     },
     {
@@ -112,6 +127,7 @@
       "title": "Клип в моменте 4",
       "year": null,
       "audio": "music_tracks/new!!!Клип в моменте4 (1).mp3",
+      "cover": "images/demo-cover.jpg",
       "lyrics": ""
     },
     {
@@ -119,6 +135,7 @@
       "title": "UNO с титрами",
       "year": null,
       "audio": "music_tracks/UNO с титрами.mp3",
+      "cover": "images/demo-cover.jpg",
       "lyrics": ""
     },
     {
@@ -126,6 +143,7 @@
       "title": "Итоговый клип в ЦА",
       "year": null,
       "audio": "music_tracks/Итоговый клип в ЦА.mp3",
+      "cover": "images/demo-cover.jpg",
       "lyrics": ""
     },
     {
@@ -133,6 +151,7 @@
       "title": "Клип директоров",
       "year": null,
       "audio": "music_tracks/Клип директоров.mp3",
+      "cover": "images/demo-cover.jpg",
       "lyrics": ""
     },
     {
@@ -140,6 +159,7 @@
       "title": "Песня — клип",
       "year": null,
       "audio": "music_tracks/Песня_клип.mp3",
+      "cover": "images/demo-cover.jpg",
       "lyrics": ""
     },
     {
@@ -147,6 +167,7 @@
       "title": "СВА семья — две минуты",
       "year": null,
       "audio": "music_tracks/СВА семья - две минуты.mp3",
+      "cover": "images/demo-cover.jpg",
       "lyrics": ""
     },
     {
@@ -154,6 +175,7 @@
       "title": "УВА — любимка 9 (обычная версия)",
       "year": null,
       "audio": "music_tracks/УВА_любимка_9_ОБЫЧНАЯ ВЕРСИЯ.mp3",
+      "cover": "images/demo-cover.jpg",
       "lyrics": ""
     }
   ]
