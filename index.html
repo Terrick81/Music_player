@@ -28,7 +28,7 @@
     body {
       min-height: 100vh;
       margin: 0;
-      padding: 0 0 calc(112px + env(safe-area-inset-bottom));
+      padding: 0 0 calc(116px + env(safe-area-inset-bottom));
       background:
         radial-gradient(ellipse at 50% -10%, #30313b 0, transparent 48%),
         var(--bg);
@@ -62,7 +62,6 @@
       padding-top: max(28px, env(safe-area-inset-top));
     }
 
-    /* Центрированная обложка и название */
     .playlist-header {
       display: flex;
       flex-direction: column;
@@ -90,7 +89,6 @@
       overflow-wrap: anywhere;
     }
 
-    /* Год — второстепенная подпись */
     .year-heading {
       margin: 30px 0 8px;
       color: var(--subtle);
@@ -158,16 +156,73 @@
       color: var(--muted);
     }
 
-    /* Нижняя панель плеера */
+    /* Таймлайны: заполненная часть обновляется из JavaScript */
+    .timeline {
+      display: block;
+      width: 100%;
+      height: 16px;
+      margin: 0;
+      padding: 0;
+      appearance: none;
+      -webkit-appearance: none;
+      border: 0;
+      border-radius: 99px;
+      background:
+        linear-gradient(
+          to right,
+          var(--accent) 0%,
+          var(--accent) var(--progress, 0%),
+          #ffffff2c var(--progress, 0%),
+          #ffffff2c 100%
+        );
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100% 3px;
+      cursor: pointer;
+      touch-action: pan-y;
+    }
+
+    .timeline::-webkit-slider-runnable-track {
+      height: 16px;
+      background: transparent;
+    }
+
+    .timeline::-moz-range-track {
+      height: 16px;
+      background: transparent;
+    }
+
+    .timeline::-webkit-slider-thumb {
+      width: 10px;
+      height: 10px;
+      margin-top: 3px;
+      appearance: none;
+      -webkit-appearance: none;
+      border: 0;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 3px #c7f47720;
+    }
+
+    .timeline::-moz-range-thumb {
+      width: 10px;
+      height: 10px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 3px #c7f47720;
+    }
+
+    /* Нижняя панель */
     .mini-player {
       position: fixed;
       z-index: 5;
       right: 12px;
       bottom: calc(12px + env(safe-area-inset-bottom));
       left: 12px;
-      width: min(620px, calc(100% - 24px));
+      width: min(660px, calc(100% - 24px));
       margin: 0 auto;
-      padding: 12px 14px 13px;
+      padding: 8px 14px 12px;
       border: 1px solid #ffffff14;
       border-radius: 20px;
       background: rgb(31 32 35 / 96%);
@@ -176,56 +231,16 @@
       -webkit-backdrop-filter: blur(22px);
     }
 
-    /* Таймлайн теперь сверху внутри панели */
-    .progress {
-      display: block;
-      width: 100%;
+    .mini-timeline {
       height: 14px;
-      margin: 0 0 9px;
-      padding: 0;
-      appearance: none;
-      -webkit-appearance: none;
-      background: transparent;
-      cursor: pointer;
-      touch-action: pan-y;
-    }
-
-    .progress::-webkit-slider-runnable-track {
-      height: 3px;
-      border-radius: 99px;
-      background: #ffffff27;
-    }
-
-    .progress::-moz-range-track {
-      height: 3px;
-      border-radius: 99px;
-      background: #ffffff27;
-    }
-
-    .progress::-webkit-slider-thumb {
-      width: 9px;
-      height: 9px;
-      margin-top: -3px;
-      appearance: none;
-      -webkit-appearance: none;
-      border: 0;
-      border-radius: 50%;
-      background: var(--accent);
-    }
-
-    .progress::-moz-range-thumb {
-      width: 9px;
-      height: 9px;
-      border: 0;
-      border-radius: 50%;
-      background: var(--accent);
+      margin-bottom: 7px;
     }
 
     .mini-inner {
       display: grid;
-      grid-template-columns: 42px minmax(70px, 1fr) auto;
+      grid-template-columns: 42px minmax(60px, 1fr) auto;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
     }
 
     .mini-cover {
@@ -259,7 +274,7 @@
     .mini-controls {
       display: flex;
       align-items: center;
-      gap: 2px;
+      gap: 1px;
     }
 
     .transport-button,
@@ -323,7 +338,7 @@
       height: 19px;
     }
 
-    /* Полноэкранный плеер */
+    /* Экран отдельного трека */
     .player-screen {
       position: fixed;
       z-index: 10;
@@ -412,12 +427,26 @@
       letter-spacing: -.035em;
     }
 
+    .full-time-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-variant-numeric: tabular-nums;
+    }
+
     .full-controls {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 20px;
-      margin: 25px 0;
+      gap: 18px;
+      margin: 17px 0 25px;
+    }
+
+    .full-controls .transport-button {
+      width: 42px;
+      height: 42px;
     }
 
     .full-controls .play-button {
@@ -430,10 +459,10 @@
       height: 25px;
     }
 
-    .full-controls .transport-button,
     .full-controls .shuffle-button {
       width: 42px;
       height: 42px;
+      margin-left: 4px;
     }
 
     .video-toggle {
@@ -444,10 +473,6 @@
       border-radius: 24px;
       background: #ffffff0c;
       cursor: pointer;
-    }
-
-    .video-toggle:active {
-      background: #ffffff1a;
     }
 
     .video-wrap {
@@ -469,23 +494,27 @@
       background: #000;
     }
 
-    @media (max-width: 390px) {
+    @media (max-width: 410px) {
       .mini-player {
         right: 8px;
         left: 8px;
         width: calc(100% - 16px);
-        padding-right: 9px;
-        padding-left: 9px;
+        padding-right: 8px;
+        padding-left: 8px;
       }
 
       .mini-inner {
-        grid-template-columns: 38px minmax(55px, 1fr) auto;
-        gap: 7px;
+        grid-template-columns: 36px minmax(42px, 1fr) auto;
+        gap: 6px;
       }
 
       .mini-cover {
-        width: 38px;
-        height: 38px;
+        width: 36px;
+        height: 36px;
+      }
+
+      .mini-title {
+        font-size: 12px;
       }
 
       .mini-controls {
@@ -494,16 +523,12 @@
 
       .transport-button,
       .shuffle-button {
-        width: 30px;
+        width: 29px;
       }
 
       .play-button {
-        width: 36px;
-        height: 36px;
-      }
-
-      .mini-title {
-        font-size: 12px;
+        width: 35px;
+        height: 35px;
       }
     }
 
@@ -542,8 +567,8 @@
 
   <aside class="mini-player" id="mini-player" hidden>
     <input
-      class="progress"
-      id="progress"
+      class="timeline mini-timeline"
+      id="mini-progress"
       type="range"
       min="0"
       max="1000"
@@ -566,14 +591,9 @@
       </div>
 
       <div class="mini-controls">
-        <button
-          class="shuffle-button"
-          id="mini-shuffle"
-          type="button"
-          aria-label="Перемешать треки"
-          aria-pressed="false"
-          title="Перемешать треки"
-        >
+        <button class="shuffle-button" id="mini-shuffle" type="button"
+                aria-label="Перемешать треки" aria-pressed="false"
+                title="Перемешать треки">
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"
               stroke="currentColor" stroke-width="1.8"
@@ -581,32 +601,18 @@
           </svg>
         </button>
 
-        <button
-          class="transport-button"
-          id="previous-track"
-          type="button"
-          aria-label="Предыдущий трек"
-          title="Предыдущий трек"
-        >
+        <button class="transport-button" id="previous-track" type="button"
+                aria-label="Предыдущий трек" title="Предыдущий трек">
           <svg viewBox="0 0 16 16" aria-hidden="true">
             <path fill="currentColor" d="M12.798 4.025a.33.33 0 0 0-.342.016L7.503 7.332V4.318a.33.33 0 0 0-.176-.293.33.33 0 0 0-.342.016l-5.54 3.681a.33.33 0 0 0-.15.278c0 .106.05.212.15.278l5.54 3.681c.11.074.24.071.342.016a.33.33 0 0 0 .176-.293V8.668l4.953 3.291c.11.074.24.071.341.016a.33.33 0 0 0 .176-.293V4.318a.33.33 0 0 0-.176-.293"></path>
           </svg>
         </button>
 
-        <button
-          class="play-button"
-          id="mini-play"
-          type="button"
-          aria-label="Воспроизвести"
-        ></button>
+        <button class="play-button" id="mini-play" type="button"
+                aria-label="Воспроизвести"></button>
 
-        <button
-          class="transport-button"
-          id="next-track"
-          type="button"
-          aria-label="Следующий трек"
-          title="Следующий трек"
-        >
+        <button class="transport-button" id="next-track" type="button"
+                aria-label="Следующий трек" title="Следующий трек">
           <svg viewBox="0 0 16 16" aria-hidden="true">
             <path fill="currentColor" d="M3.202 4.025a.33.33 0 0 1 .342.016l4.953 3.291V4.318a.33.33 0 0 1 .176-.293.33.33 0 0 1 .342.016l5.54 3.681a.33.33 0 0 1 .15.278c0 .106-.05.212-.15.278l-5.54 3.681a.33.33 0 0 1-.342.016.33.33 0 0 1-.176-.293V8.668l-4.953 3.291a.33.33 0 0 1-.341.016.33.33 0 0 1-.176-.293V4.318a.33.33 0 0 1 .176-.293"></path>
           </svg>
@@ -618,11 +624,11 @@
   <section class="player-screen" id="player-screen" aria-label="Плеер">
     <div class="player-content">
       <div class="screen-top">
-        <button class="close-button" id="close-player" type="button" aria-label="Закрыть">
+        <button class="close-button" id="close-player" type="button"
+                aria-label="Закрыть">
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="m6 6 12 12M18 6 6 18"
-              stroke="currentColor" stroke-width="1.8"
-              stroke-linecap="round"></path>
+            <path d="m6 6 12 12M18 6 6 18" stroke="currentColor"
+              stroke-width="1.8" stroke-linecap="round"></path>
           </svg>
         </button>
 
@@ -633,48 +639,46 @@
       <img class="big-cover" id="big-cover" alt="Обложка трека">
       <h2 class="full-title" id="full-title"></h2>
 
-      <div class="full-controls">
-        <button
-          class="shuffle-button"
-          id="full-shuffle"
-          type="button"
-          aria-label="Перемешать треки"
-          aria-pressed="false"
-          title="Перемешать треки"
-        >
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"
-              stroke="currentColor" stroke-width="1.8"
-              stroke-linecap="round" stroke-linejoin="round"></path>
-          </svg>
-        </button>
+      <div class="full-time-row">
+        <span id="full-current-time">0:00</span>
+        <span id="full-duration">--:--</span>
+      </div>
 
-        <button
-          class="transport-button"
-          id="full-previous"
-          type="button"
-          aria-label="Предыдущий трек"
-        >
+      <input
+        class="timeline full-timeline"
+        id="full-progress"
+        type="range"
+        min="0"
+        max="1000"
+        value="0"
+        aria-label="Позиция воспроизведения"
+      >
+
+      <div class="full-controls">
+        <button class="transport-button" id="full-previous" type="button"
+                aria-label="Предыдущий трек">
           <svg viewBox="0 0 16 16" aria-hidden="true">
             <path fill="currentColor" d="M12.798 4.025a.33.33 0 0 0-.342.016L7.503 7.332V4.318a.33.33 0 0 0-.176-.293.33.33 0 0 0-.342.016l-5.54 3.681a.33.33 0 0 0-.15.278c0 .106.05.212.15.278l5.54 3.681c.11.074.24.071.342.016a.33.33 0 0 0 .176-.293V8.668l4.953 3.291c.11.074.24.071.341.016a.33.33 0 0 0 .176-.293V4.318a.33.33 0 0 0-.176-.293"></path>
           </svg>
         </button>
 
-        <button
-          class="play-button"
-          id="full-play"
-          type="button"
-          aria-label="Воспроизвести"
-        ></button>
+        <button class="play-button" id="full-play" type="button"
+                aria-label="Воспроизвести"></button>
 
-        <button
-          class="transport-button"
-          id="full-next"
-          type="button"
-          aria-label="Следующий трек"
-        >
+        <button class="transport-button" id="full-next" type="button"
+                aria-label="Следующий трек">
           <svg viewBox="0 0 16 16" aria-hidden="true">
             <path fill="currentColor" d="M3.202 4.025a.33.33 0 0 1 .342.016l4.953 3.291V4.318a.33.33 0 0 1 .176-.293.33.33 0 0 1 .342.016l5.54 3.681a.33.33 0 0 1 .15.278c0 .106-.05.212-.15.278l-5.54 3.681a.33.33 0 0 1-.342.016.33.33 0 0 1-.176-.293V8.668l-4.953 3.291a.33.33 0 0 1-.341.016.33.33 0 0 1-.176-.293V4.318a.33.33 0 0 1 .176-.293"></path>
+          </svg>
+        </button>
+
+        <button class="shuffle-button" id="full-shuffle" type="button"
+                aria-label="Перемешать треки" aria-pressed="false"
+                title="Перемешать треки">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"
+              stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round"></path>
           </svg>
         </button>
       </div>
@@ -707,15 +711,13 @@
       <svg viewBox="0 0 20 20" aria-hidden="true">
         <path fill="currentColor"
           d="M6 4.9c0-.7.8-1.1 1.4-.7l9 5.1a.8.8 0 0 1 0 1.4l-9 5.1c-.6.4-1.4 0-1.4-.7V4.9Z"></path>
-      </svg>
-    `;
+      </svg>`;
 
     const pauseIcon = `
       <svg viewBox="0 0 20 20" aria-hidden="true">
         <path fill="currentColor"
           d="M8.25 3.09v13.82a.415.415 0 0 1-.417.416H4.81a.415.415 0 0 1-.417-.416V3.09a.415.415 0 0 1 .417-.416h3.023a.415.415 0 0 1 .416.416m7.358 0v13.82a.415.415 0 0 1-.417.416h-3.022a.416.416 0 0 1-.417-.416V3.09a.415.415 0 0 1 .417-.416h3.022a.415.415 0 0 1 .417.416"></path>
-      </svg>
-    `;
+      </svg>`;
 
     function setImage(img, path) {
       if (!img) return;
@@ -743,13 +745,11 @@
     }
 
     function parseDuration(value) {
-      if (typeof value === "number" && Number.isFinite(value)) {
+      if (typeof value === "number" && Number.isFinite(value) && value >= 0) {
         return value;
       }
 
-      if (typeof value !== "string" || !value.trim()) {
-        return null;
-      }
+      if (typeof value !== "string" || !value.trim()) return null;
 
       const parts = value.trim().split(":").map(Number);
 
@@ -769,12 +769,26 @@
     }
 
     function displayDuration(value) {
-      if (typeof value === "string" && value.trim()) {
-        return value.trim();
-      }
+      if (typeof value === "string" && value.trim()) return value.trim();
 
       const seconds = parseDuration(value);
       return seconds === null ? "--:--" : formatTime(seconds);
+    }
+
+    function getTrackDurationSeconds() {
+      const jsonDuration = parseDuration(currentTrack?.duration);
+      if (jsonDuration !== null) return jsonDuration;
+
+      return Number.isFinite(audio.duration) ? audio.duration : null;
+    }
+
+    function updateTimeline(input, current, duration) {
+      const percent = duration > 0
+        ? Math.max(0, Math.min(100, current / duration * 100))
+        : 0;
+
+      input.value = String(Math.round(percent * 10));
+      input.style.setProperty("--progress", `${percent}%`);
     }
 
     function setPlayButtons(playing) {
@@ -782,9 +796,12 @@
 
       $("#mini-play").innerHTML = icon;
       $("#full-play").innerHTML = icon;
-
       $("#mini-play").setAttribute("aria-label", playing ? "Пауза" : "Воспроизвести");
       $("#full-play").setAttribute("aria-label", playing ? "Пауза" : "Воспроизвести");
+
+      if ("mediaSession" in navigator) {
+        navigator.mediaSession.playbackState = playing ? "playing" : "paused";
+      }
     }
 
     function shuffleTracks(tracks) {
@@ -816,14 +833,93 @@
       if (!playlist?.tracks?.length) return;
 
       if (shuffleEnabled) {
-        const others = shuffleTracks(
-          playlist.tracks.filter((item) => item !== track)
-        );
-        playQueue = [track, ...others];
+        playQueue = [
+          track,
+          ...shuffleTracks(playlist.tracks.filter((item) => item !== track))
+        ];
         queueIndex = 0;
       } else {
         playQueue = [...playlist.tracks];
         queueIndex = playQueue.indexOf(track);
+      }
+    }
+
+    function updateMediaSession(track) {
+      if (!("mediaSession" in navigator) || !track) return;
+
+      const artworkPath = track.cover || playlist?.cover;
+      const artworkUrl = artworkPath
+        ? new URL(artworkPath, document.baseURI).href
+        : "";
+
+      const artwork = artworkUrl
+        ? [
+            { src: artworkUrl, sizes: "96x96", type: "image/jpeg" },
+            { src: artworkUrl, sizes: "192x192", type: "image/jpeg" },
+            { src: artworkUrl, sizes: "512x512", type: "image/jpeg" }
+          ]
+        : [];
+
+      try {
+        navigator.mediaSession.metadata = new MediaMetadata({
+          title: track.title || "Без названия",
+          album: "Библиотека СВА",
+          artwork
+        });
+      } catch (error) {
+        console.warn("Не удалось обновить информацию экрана блокировки:", error);
+      }
+
+      setMediaSessionAction("play", () => audio.play().catch(() => {}));
+      setMediaSessionAction("pause", () => audio.pause());
+      setMediaSessionAction("previoustrack", () => changeTrack(-1));
+      setMediaSessionAction("nexttrack", () => changeTrack(1));
+      setMediaSessionAction("seekbackward", (details) => {
+        audio.currentTime = Math.max(
+          0,
+          audio.currentTime - (details.seekOffset || 10)
+        );
+      });
+      setMediaSessionAction("seekforward", (details) => {
+        const duration = getTrackDurationSeconds();
+        audio.currentTime = Math.min(
+          duration || Infinity,
+          audio.currentTime + (details.seekOffset || 10)
+        );
+      });
+      setMediaSessionAction("seekto", (details) => {
+        if (Number.isFinite(details.seekTime)) {
+          audio.currentTime = details.seekTime;
+        }
+      });
+
+      updateMediaPosition();
+    }
+
+    function setMediaSessionAction(action, handler) {
+      if (!("mediaSession" in navigator)) return;
+
+      try {
+        navigator.mediaSession.setActionHandler(action, handler);
+      } catch {
+        // Некоторые браузеры не поддерживают отдельные команды Media Session.
+      }
+    }
+
+    function updateMediaPosition() {
+      if (!("mediaSession" in navigator)) return;
+
+      const duration = getTrackDurationSeconds();
+      if (!duration || !Number.isFinite(duration)) return;
+
+      try {
+        navigator.mediaSession.setPositionState({
+          duration,
+          playbackRate: audio.playbackRate || 1,
+          position: Math.min(audio.currentTime || 0, duration)
+        });
+      } catch {
+        // Не все браузеры поддерживают отображение позиции трека.
       }
     }
 
@@ -841,11 +937,7 @@
 
       for (const track of data.tracks) {
         const year = track.year ? String(track.year) : "Без года";
-
-        if (!groups.has(year)) {
-          groups.set(year, []);
-        }
-
+        if (!groups.has(year)) groups.set(year, []);
         groups.get(year).push(track);
       }
 
@@ -916,7 +1008,7 @@
       video.load();
       $("#video-wrap").classList.remove("visible");
 
-      audio.src = track.audio;
+      audio.src = new URL(track.audio, document.baseURI).href;
       audio.load();
 
       const title = track.title || "Без названия";
@@ -931,7 +1023,12 @@
       $("#video-toggle").hidden = !track.video;
       miniPlayer.hidden = false;
       $("#mini-time").textContent = `0:00 / ${displayDuration(track.duration)}`;
-      $("#progress").value = 0;
+      $("#full-current-time").textContent = "0:00";
+      $("#full-duration").textContent = displayDuration(track.duration);
+
+      updateTimeline($("#mini-progress"), 0, getTrackDurationSeconds());
+      updateTimeline($("#full-progress"), 0, getTrackDurationSeconds());
+      updateMediaSession(track);
 
       audio.play()
         .then(() => setPlayButtons(true))
@@ -944,18 +1041,6 @@
     function togglePlayback() {
       if (!currentTrack) return;
 
-      const videoVisible = $("#video-wrap").classList.contains("visible");
-
-      if (videoVisible && video.src) {
-        if (video.paused) {
-          audio.pause();
-          video.play().catch(() => {});
-        } else {
-          video.pause();
-        }
-        return;
-      }
-
       if (audio.paused) {
         audio.play().catch(() => {});
       } else {
@@ -964,9 +1049,14 @@
     }
 
     function changeTrack(direction) {
-      if (!currentTrack || !playQueue.length) return;
+      if (!playQueue.length) return;
 
-      queueIndex = (queueIndex + direction + playQueue.length) % playQueue.length;
+      if (queueIndex < 0) {
+        queueIndex = 0;
+      } else {
+        queueIndex = (queueIndex + direction + playQueue.length) % playQueue.length;
+      }
+
       selectTrack(playQueue[queueIndex], true);
     }
 
@@ -975,10 +1065,10 @@
 
       if (playlist?.tracks?.length) {
         if (shuffleEnabled && currentTrack) {
-          const others = shuffleTracks(
-            playlist.tracks.filter((track) => track !== currentTrack)
-          );
-          playQueue = [currentTrack, ...others];
+          playQueue = [
+            currentTrack,
+            ...shuffleTracks(playlist.tracks.filter((track) => track !== currentTrack))
+          ];
           queueIndex = 0;
         } else if (shuffleEnabled) {
           playQueue = shuffleTracks(playlist.tracks);
@@ -992,6 +1082,30 @@
       updateShuffleButtons();
     }
 
+    function seekFromSlider(event) {
+      const slider = event.currentTarget;
+      const duration = getTrackDurationSeconds();
+
+      if (!duration || duration <= 0) return;
+
+      const fraction = Number(slider.value) / 1000;
+      audio.currentTime = fraction * duration;
+    }
+
+    function updateProgressDisplays() {
+      const current = audio.currentTime || 0;
+      const duration = getTrackDurationSeconds();
+
+      $("#mini-time").textContent =
+        `${formatTime(current)} / ${displayDuration(currentTrack?.duration)}`;
+      $("#full-current-time").textContent = formatTime(current);
+      $("#full-duration").textContent = displayDuration(currentTrack?.duration);
+
+      updateTimeline($("#mini-progress"), current, duration);
+      updateTimeline($("#full-progress"), current, duration);
+      updateMediaPosition();
+    }
+
     $("#mini-play").addEventListener("click", togglePlayback);
     $("#full-play").addEventListener("click", togglePlayback);
 
@@ -1002,6 +1116,9 @@
 
     $("#mini-shuffle").addEventListener("click", toggleShuffle);
     $("#full-shuffle").addEventListener("click", toggleShuffle);
+
+    $("#mini-progress").addEventListener("input", seekFromSlider);
+    $("#full-progress").addEventListener("input", seekFromSlider);
 
     $("#open-player").addEventListener("click", () => {
       if (currentTrack) playerScreen.classList.add("open");
@@ -1023,22 +1140,20 @@
       if (!currentTrack?.video) return;
 
       audio.pause();
-      video.src = currentTrack.video;
+      video.src = new URL(currentTrack.video, document.baseURI).href;
       video.load();
       $("#video-wrap").classList.add("visible");
-
       video.play().catch((error) => {
         console.warn("Видео не запустилось:", error);
-      });
-
-      $("#video-wrap").scrollIntoView({
-        behavior: "smooth",
-        block: "center"
       });
     });
 
     audio.addEventListener("play", () => setPlayButtons(true));
     audio.addEventListener("pause", () => setPlayButtons(false));
+
+    audio.addEventListener("loadedmetadata", updateProgressDisplays);
+    audio.addEventListener("durationchange", updateProgressDisplays);
+    audio.addEventListener("timeupdate", updateProgressDisplays);
 
     audio.addEventListener("ended", () => {
       if (playQueue.length) {
@@ -1048,37 +1163,8 @@
       }
     });
 
-    video.addEventListener("play", () => setPlayButtons(true));
-    video.addEventListener("pause", () => {
-      if (video.paused && audio.paused) {
-        setPlayButtons(false);
-      }
-    });
-
-    audio.addEventListener("timeupdate", () => {
-      const current = audio.currentTime || 0;
-      const duration = currentTrack
-        ? parseDuration(currentTrack.duration)
-        : null;
-
-      $("#mini-time").textContent =
-        `${formatTime(current)} / ${displayDuration(currentTrack?.duration)}`;
-
-      if (duration && duration > 0) {
-        $("#progress").value = Math.min(
-          1000,
-          Math.round(current / duration * 1000)
-        );
-      }
-    });
-
-    $("#progress").addEventListener("input", (event) => {
-      if (!currentTrack) return;
-
-      const duration = parseDuration(currentTrack.duration);
-      if (duration) {
-        audio.currentTime = Number(event.target.value) / 1000 * duration;
-      }
+    video.addEventListener("play", () => {
+      audio.pause();
     });
 
     fetch("playlist.json", { cache: "no-store" })
@@ -1093,10 +1179,4 @@
       })
       .then(renderPlaylist)
       .catch((error) => {
-        console.error(error);
-        $("#message").textContent =
-          `${error.message} Проверь, что playlist.json лежит рядом с index.html и содержит корректный JSON.`;
-      });
-  </script>
-</body>
-</html>
+       
