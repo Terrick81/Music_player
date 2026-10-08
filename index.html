@@ -16,9 +16,7 @@
       --accent: #c7f477;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     html {
       min-height: 100%;
@@ -43,18 +41,14 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    button:focus:not(:focus-visible) {
-      outline: none;
-    }
+    button:focus:not(:focus-visible) { outline: none; }
 
     button:focus-visible {
       outline: 2px solid var(--accent);
       outline-offset: 3px;
     }
 
-    [hidden] {
-      display: none !important;
-    }
+    [hidden] { display: none !important; }
 
     .page {
       width: min(100% - 36px, 820px);
@@ -86,7 +80,6 @@
       font-size: clamp(30px, 7vw, 46px);
       line-height: 1.06;
       letter-spacing: -.04em;
-      overflow-wrap: anywhere;
     }
 
     .year-heading {
@@ -113,13 +106,8 @@
       transition: background .18s ease, transform .18s ease;
     }
 
-    .track:hover {
-      background: #ffffff0a;
-    }
-
-    .track:active {
-      transform: scale(.99);
-    }
+    .track:hover { background: #ffffff0a; }
+    .track:active { transform: scale(.99); }
 
     .track-cover {
       width: 48px;
@@ -156,7 +144,7 @@
       color: var(--muted);
     }
 
-    /* Таймлайны: заполненная часть обновляется из JavaScript */
+    /* Прогресс с заполненной частью */
     .timeline {
       display: block;
       width: 100%;
@@ -174,10 +162,7 @@
           var(--accent) var(--progress, 0%),
           #ffffff2c var(--progress, 0%),
           #ffffff2c 100%
-        );
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: 100% 3px;
+        ) center / 100% 3px no-repeat;
       cursor: pointer;
       touch-action: pan-y;
     }
@@ -213,7 +198,7 @@
       box-shadow: 0 0 0 3px #c7f47720;
     }
 
-    /* Нижняя панель */
+    /* Нижняя панель плеера */
     .mini-player {
       position: fixed;
       z-index: 5;
@@ -329,9 +314,7 @@
       transition: transform .15s ease;
     }
 
-    .play-button:active {
-      transform: scale(.93);
-    }
+    .play-button:active { transform: scale(.93); }
 
     .play-button svg {
       width: 19px;
@@ -354,9 +337,7 @@
         #101113;
     }
 
-    .player-screen.open {
-      display: block;
-    }
+    .player-screen.open { display: block; }
 
     .player-content {
       width: min(100%, 720px);
@@ -381,15 +362,6 @@
       background: #ffffff0d;
       color: var(--text);
       cursor: pointer;
-      transition: background .18s ease, transform .18s ease;
-    }
-
-    .close-button:hover {
-      background: #ffffff18;
-    }
-
-    .close-button:active {
-      transform: scale(.94);
     }
 
     .close-button svg {
@@ -444,7 +416,8 @@
       margin: 17px 0 25px;
     }
 
-    .full-controls .transport-button {
+    .full-controls .transport-button,
+    .full-controls .shuffle-button {
       width: 42px;
       height: 42px;
     }
@@ -459,11 +432,8 @@
       height: 25px;
     }
 
-    .full-controls .shuffle-button {
-      width: 42px;
-      height: 42px;
-      margin-left: 4px;
-    }
+    /* Перемешивание находится сразу правее кнопки следующего трека */
+    .full-controls .shuffle-button { margin-left: 4px; }
 
     .video-toggle {
       display: block;
@@ -483,9 +453,7 @@
       background: #000;
     }
 
-    .video-wrap.visible {
-      display: block;
-    }
+    .video-wrap.visible { display: block; }
 
     .video-wrap video {
       display: block;
@@ -513,18 +481,11 @@
         height: 36px;
       }
 
-      .mini-title {
-        font-size: 12px;
-      }
-
-      .mini-controls {
-        gap: 0;
-      }
+      .mini-title { font-size: 12px; }
+      .mini-controls { gap: 0; }
 
       .transport-button,
-      .shuffle-button {
-        width: 29px;
-      }
+      .shuffle-button { width: 29px; }
 
       .play-button {
         width: 35px;
@@ -533,21 +494,10 @@
     }
 
     @media (min-width: 700px) {
-      .page {
-        padding-top: 42px;
-      }
-
-      .playlist-header {
-        margin-bottom: 42px;
-      }
-
-      .track:hover {
-        transform: translateX(2px);
-      }
-
-      .mini-player {
-        bottom: 20px;
-      }
+      .page { padding-top: 42px; }
+      .playlist-header { margin-bottom: 42px; }
+      .track:hover { transform: translateX(2px); }
+      .mini-player { bottom: 20px; }
     }
   </style>
 </head>
@@ -624,14 +574,12 @@
   <section class="player-screen" id="player-screen" aria-label="Плеер">
     <div class="player-content">
       <div class="screen-top">
-        <button class="close-button" id="close-player" type="button"
-                aria-label="Закрыть">
+        <button class="close-button" id="close-player" type="button" aria-label="Закрыть">
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="m6 6 12 12M18 6 6 18" stroke="currentColor"
               stroke-width="1.8" stroke-linecap="round"></path>
           </svg>
         </button>
-
         <span class="now-playing">СЕЙЧАС ИГРАЕТ</span>
         <span class="top-spacer" aria-hidden="true"></span>
       </div>
@@ -698,14 +646,13 @@
     const video = document.querySelector("#video");
     const miniPlayer = document.querySelector("#mini-player");
     const playerScreen = document.querySelector("#player-screen");
+    const $ = (selector) => document.querySelector(selector);
 
     let playlist = null;
     let currentTrack = null;
     let playQueue = [];
     let queueIndex = -1;
     let shuffleEnabled = false;
-
-    const $ = (selector) => document.querySelector(selector);
 
     const playIcon = `
       <svg viewBox="0 0 20 20" aria-hidden="true">
@@ -721,7 +668,6 @@
 
     function setImage(img, path) {
       if (!img) return;
-
       if (!path) {
         img.removeAttribute("src");
         return;
@@ -737,10 +683,8 @@
 
     function formatTime(seconds) {
       if (!Number.isFinite(seconds) || seconds < 0) return "0:00";
-
       const minutes = Math.floor(seconds / 60);
       const remainder = Math.floor(seconds % 60).toString().padStart(2, "0");
-
       return `${minutes}:${remainder}`;
     }
 
@@ -748,52 +692,40 @@
       if (typeof value === "number" && Number.isFinite(value) && value >= 0) {
         return value;
       }
-
       if (typeof value !== "string" || !value.trim()) return null;
 
       const parts = value.trim().split(":").map(Number);
+      if (parts.some((part) => !Number.isFinite(part) || part < 0)) return null;
 
-      if (parts.some((part) => !Number.isFinite(part) || part < 0)) {
-        return null;
-      }
-
-      if (parts.length === 2) {
-        return parts[0] * 60 + parts[1];
-      }
-
-      if (parts.length === 3) {
-        return parts[0] * 3600 + parts[1] * 60 + parts[2];
-      }
-
+      if (parts.length === 2) return parts[0] * 60 + parts[1];
+      if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
       return null;
     }
 
     function displayDuration(value) {
       if (typeof value === "string" && value.trim()) return value.trim();
-
       const seconds = parseDuration(value);
       return seconds === null ? "--:--" : formatTime(seconds);
     }
 
-    function getTrackDurationSeconds() {
-      const jsonDuration = parseDuration(currentTrack?.duration);
-      if (jsonDuration !== null) return jsonDuration;
-
+    function getDurationSeconds() {
+      const fromJson = parseDuration(currentTrack?.duration);
+      if (fromJson !== null) return fromJson;
       return Number.isFinite(audio.duration) ? audio.duration : null;
     }
 
-    function updateTimeline(input, current, duration) {
+    function updateTimeline(element, current, duration) {
+      if (!element) return;
       const percent = duration > 0
         ? Math.max(0, Math.min(100, current / duration * 100))
         : 0;
 
-      input.value = String(Math.round(percent * 10));
-      input.style.setProperty("--progress", `${percent}%`);
+      element.value = String(Math.round(percent * 10));
+      element.style.setProperty("--progress", `${percent}%`);
     }
 
     function setPlayButtons(playing) {
       const icon = playing ? pauseIcon : playIcon;
-
       $("#mini-play").innerHTML = icon;
       $("#full-play").innerHTML = icon;
       $("#mini-play").setAttribute("aria-label", playing ? "Пауза" : "Воспроизвести");
@@ -806,12 +738,10 @@
 
     function shuffleTracks(tracks) {
       const result = [...tracks];
-
       for (let i = result.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [result[i], result[j]] = [result[j], result[i]];
       }
-
       return result;
     }
 
@@ -829,7 +759,7 @@
       }
     }
 
-    function setQueueForSelectedTrack(track) {
+    function setQueueForTrack(track) {
       if (!playlist?.tracks?.length) return;
 
       if (shuffleEnabled) {
@@ -844,20 +774,37 @@
       }
     }
 
+    function setMediaAction(action, handler) {
+      if (!("mediaSession" in navigator)) return;
+      try {
+        navigator.mediaSession.setActionHandler(action, handler);
+      } catch {
+        /* Некоторые браузеры не поддерживают все действия. */
+      }
+    }
+
+    function updateMediaPosition() {
+      if (!("mediaSession" in navigator)) return;
+      const duration = getDurationSeconds();
+      if (!Number.isFinite(duration) || duration <= 0) return;
+
+      try {
+        navigator.mediaSession.setPositionState({
+          duration,
+          playbackRate: audio.playbackRate || 1,
+          position: Math.min(audio.currentTime || 0, duration)
+        });
+      } catch {
+        /* Позиция может не поддерживаться браузером. */
+      }
+    }
+
     function updateMediaSession(track) {
       if (!("mediaSession" in navigator) || !track) return;
 
-      const artworkPath = track.cover || playlist?.cover;
-      const artworkUrl = artworkPath
-        ? new URL(artworkPath, document.baseURI).href
-        : "";
-
-      const artwork = artworkUrl
-        ? [
-            { src: artworkUrl, sizes: "96x96", type: "image/jpeg" },
-            { src: artworkUrl, sizes: "192x192", type: "image/jpeg" },
-            { src: artworkUrl, sizes: "512x512", type: "image/jpeg" }
-          ]
+      const imagePath = track.cover || playlist?.cover;
+      const artwork = imagePath
+        ? [{ src: new URL(imagePath, document.baseURI).href, sizes: "512x512" }]
         : [];
 
       try {
@@ -867,60 +814,20 @@
           artwork
         });
       } catch (error) {
-        console.warn("Не удалось обновить информацию экрана блокировки:", error);
+        console.warn("Не удалось обновить данные плеера:", error);
       }
 
-      setMediaSessionAction("play", () => audio.play().catch(() => {}));
-      setMediaSessionAction("pause", () => audio.pause());
-      setMediaSessionAction("previoustrack", () => changeTrack(-1));
-      setMediaSessionAction("nexttrack", () => changeTrack(1));
-      setMediaSessionAction("seekbackward", (details) => {
-        audio.currentTime = Math.max(
-          0,
-          audio.currentTime - (details.seekOffset || 10)
-        );
-      });
-      setMediaSessionAction("seekforward", (details) => {
-        const duration = getTrackDurationSeconds();
-        audio.currentTime = Math.min(
-          duration || Infinity,
-          audio.currentTime + (details.seekOffset || 10)
-        );
-      });
-      setMediaSessionAction("seekto", (details) => {
+      setMediaAction("play", () => audio.play().catch(() => {}));
+      setMediaAction("pause", () => audio.pause());
+      setMediaAction("previoustrack", () => changeTrack(-1));
+      setMediaAction("nexttrack", () => changeTrack(1));
+      setMediaAction("seekto", (details) => {
         if (Number.isFinite(details.seekTime)) {
           audio.currentTime = details.seekTime;
         }
       });
 
       updateMediaPosition();
-    }
-
-    function setMediaSessionAction(action, handler) {
-      if (!("mediaSession" in navigator)) return;
-
-      try {
-        navigator.mediaSession.setActionHandler(action, handler);
-      } catch {
-        // Некоторые браузеры не поддерживают отдельные команды Media Session.
-      }
-    }
-
-    function updateMediaPosition() {
-      if (!("mediaSession" in navigator)) return;
-
-      const duration = getTrackDurationSeconds();
-      if (!duration || !Number.isFinite(duration)) return;
-
-      try {
-        navigator.mediaSession.setPositionState({
-          duration,
-          playbackRate: audio.playbackRate || 1,
-          position: Math.min(audio.currentTime || 0, duration)
-        });
-      } catch {
-        // Не все браузеры поддерживают отображение позиции трека.
-      }
     }
 
     function renderPlaylist(data) {
@@ -934,7 +841,6 @@
       setImage($("#cover"), data.cover);
 
       const groups = new Map();
-
       for (const track of data.tracks) {
         const year = track.year ? String(track.year) : "Без года";
         if (!groups.has(year)) groups.set(year, []);
@@ -961,10 +867,10 @@
           row.className = "track";
           row.type = "button";
 
-          const trackCover = document.createElement("img");
-          trackCover.className = "track-cover";
-          trackCover.alt = "";
-          setImage(trackCover, track.cover || data.cover);
+          const image = document.createElement("img");
+          image.className = "track-cover";
+          image.alt = "";
+          setImage(image, track.cover || data.cover);
 
           const info = document.createElement("span");
           info.className = "track-info";
@@ -978,29 +884,26 @@
           duration.textContent = displayDuration(track.duration);
 
           info.append(title);
-          row.append(trackCover, info, duration);
+          row.append(image, info, duration);
           row.addEventListener("click", () => selectTrack(track));
           list.append(row);
         }
       }
 
       $("#message").textContent =
-        data.tracks.length === 0 ? "В библиотеке пока нет треков." : "";
+        data.tracks.length ? "" : "В библиотеке пока нет треков.";
 
       updateShuffleButtons();
     }
 
     function selectTrack(track, fromQueue = false) {
-      if (!track || !track.audio) {
+      if (!track?.audio) {
         $("#message").textContent = "У этого трека не указан путь к аудиофайлу.";
         return;
       }
 
       currentTrack = track;
-
-      if (!fromQueue) {
-        setQueueForSelectedTrack(track);
-      }
+      if (!fromQueue) setQueueForTrack(track);
 
       audio.pause();
       video.pause();
@@ -1012,11 +915,10 @@
       audio.load();
 
       const title = track.title || "Без названия";
-      const coverPath = track.cover || playlist.cover;
+      const coverPath = track.cover || playlist?.cover;
 
       $("#mini-title").textContent = title;
       $("#full-title").textContent = title;
-
       setImage($("#mini-cover"), coverPath);
       setImage($("#big-cover"), coverPath);
 
@@ -1026,33 +928,35 @@
       $("#full-current-time").textContent = "0:00";
       $("#full-duration").textContent = displayDuration(track.duration);
 
-      updateTimeline($("#mini-progress"), 0, getTrackDurationSeconds());
-      updateTimeline($("#full-progress"), 0, getTrackDurationSeconds());
+      updateTimeline($("#mini-progress"), 0, getDurationSeconds());
+      updateTimeline($("#full-progress"), 0, getDurationSeconds());
       updateMediaSession(track);
 
-      audio.play()
-        .then(() => setPlayButtons(true))
-        .catch((error) => {
+      audio.play().then(
+        () => setPlayButtons(true),
+        (error) => {
           console.warn("Воспроизведение не запустилось:", error);
           setPlayButtons(false);
-        });
+        }
+      );
     }
 
     function togglePlayback() {
       if (!currentTrack) return;
-
-      if (audio.paused) {
-        audio.play().catch(() => {});
-      } else {
-        audio.pause();
-      }
+      if (audio.paused) audio.play().catch(() => {});
+      else audio.pause();
     }
 
     function changeTrack(direction) {
-      if (!playQueue.length) return;
+      if (!playlist?.tracks?.length) return;
+
+      if (!playQueue.length) {
+        playQueue = [...playlist.tracks];
+        queueIndex = -1;
+      }
 
       if (queueIndex < 0) {
-        queueIndex = 0;
+        queueIndex = direction > 0 ? 0 : playQueue.length - 1;
       } else {
         queueIndex = (queueIndex + direction + playQueue.length) % playQueue.length;
       }
@@ -1067,7 +971,7 @@
         if (shuffleEnabled && currentTrack) {
           playQueue = [
             currentTrack,
-            ...shuffleTracks(playlist.tracks.filter((track) => track !== currentTrack))
+            ...shuffleTracks(playlist.tracks.filter((item) => item !== currentTrack))
           ];
           queueIndex = 0;
         } else if (shuffleEnabled) {
@@ -1082,19 +986,9 @@
       updateShuffleButtons();
     }
 
-    function seekFromSlider(event) {
-      const slider = event.currentTarget;
-      const duration = getTrackDurationSeconds();
-
-      if (!duration || duration <= 0) return;
-
-      const fraction = Number(slider.value) / 1000;
-      audio.currentTime = fraction * duration;
-    }
-
-    function updateProgressDisplays() {
+    function updateProgress() {
       const current = audio.currentTime || 0;
-      const duration = getTrackDurationSeconds();
+      const duration = getDurationSeconds();
 
       $("#mini-time").textContent =
         `${formatTime(current)} / ${displayDuration(currentTrack?.duration)}`;
@@ -1104,6 +998,13 @@
       updateTimeline($("#mini-progress"), current, duration);
       updateTimeline($("#full-progress"), current, duration);
       updateMediaPosition();
+    }
+
+    function seek(event) {
+      const duration = getDurationSeconds();
+      if (!duration || duration <= 0) return;
+      audio.currentTime = Number(event.currentTarget.value) / 1000 * duration;
+      updateProgress();
     }
 
     $("#mini-play").addEventListener("click", togglePlayback);
@@ -1117,8 +1018,8 @@
     $("#mini-shuffle").addEventListener("click", toggleShuffle);
     $("#full-shuffle").addEventListener("click", toggleShuffle);
 
-    $("#mini-progress").addEventListener("input", seekFromSlider);
-    $("#full-progress").addEventListener("input", seekFromSlider);
+    $("#mini-progress").addEventListener("input", seek);
+    $("#full-progress").addEventListener("input", seek);
 
     $("#open-player").addEventListener("click", () => {
       if (currentTrack) playerScreen.classList.add("open");
@@ -1150,33 +1051,30 @@
 
     audio.addEventListener("play", () => setPlayButtons(true));
     audio.addEventListener("pause", () => setPlayButtons(false));
-
-    audio.addEventListener("loadedmetadata", updateProgressDisplays);
-    audio.addEventListener("durationchange", updateProgressDisplays);
-    audio.addEventListener("timeupdate", updateProgressDisplays);
+    audio.addEventListener("loadedmetadata", updateProgress);
+    audio.addEventListener("durationchange", updateProgress);
+    audio.addEventListener("timeupdate", updateProgress);
 
     audio.addEventListener("ended", () => {
-      if (playQueue.length) {
-        changeTrack(1);
-      } else {
-        setPlayButtons(false);
-      }
+      if (playlist?.tracks?.length) changeTrack(1);
+      else setPlayButtons(false);
     });
 
-    video.addEventListener("play", () => {
-      audio.pause();
-    });
+    video.addEventListener("play", () => audio.pause());
 
     fetch("playlist.json", { cache: "no-store" })
       .then((response) => {
         if (!response.ok) {
-          throw new Error(
-            `Не удалось загрузить playlist.json (HTTP ${response.status}).`
-          );
+          throw new Error(`Не удалось загрузить playlist.json (HTTP ${response.status}).`);
         }
-
         return response.json();
       })
       .then(renderPlaylist)
       .catch((error) => {
-       
+        console.error(error);
+        $("#message").textContent =
+          `${error.message} Проверь, что playlist.json лежит рядом с index.html и содержит корректный JSON.`;
+      });
+  </script>
+</body>
+</html>
