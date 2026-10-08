@@ -16,9 +16,7 @@
       --accent: #c7f477;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     html {
       min-height: 100%;
@@ -37,12 +35,9 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    body.player-open {
-      overflow: hidden;
-    }
+    body.player-open { overflow: hidden; }
 
-    button,
-    a {
+    button, a {
       color: inherit;
       font: inherit;
       -webkit-tap-highlight-color: transparent;
@@ -59,9 +54,7 @@
       outline-offset: 3px;
     }
 
-    [hidden] {
-      display: none !important;
-    }
+    [hidden] { display: none !important; }
 
     .page {
       width: min(100% - 36px, 820px);
@@ -119,13 +112,8 @@
       transition: background .18s ease, transform .18s ease;
     }
 
-    .track:hover {
-      background: #ffffff0a;
-    }
-
-    .track:active {
-      transform: scale(.99);
-    }
+    .track:hover { background: #ffffff0a; }
+    .track:active { transform: scale(.99); }
 
     .track-cover {
       width: 48px;
@@ -333,9 +321,7 @@
       transition: transform .15s ease;
     }
 
-    .play-button:active {
-      transform: scale(.93);
-    }
+    .play-button:active { transform: scale(.93); }
 
     .play-button svg {
       width: 19px;
@@ -347,7 +333,6 @@
       position: fixed;
       z-index: 10;
       inset: 0;
-      display: block;
       visibility: hidden;
       overflow-y: auto;
       padding:
@@ -404,13 +389,8 @@
       transition: background .18s ease, transform .18s ease;
     }
 
-    .close-button:hover {
-      background: #ffffff18;
-    }
-
-    .close-button:active {
-      transform: scale(.94);
-    }
+    .close-button:hover { background: #ffffff18; }
+    .close-button:active { transform: scale(.94); }
 
     .close-button svg {
       width: 20px;
@@ -456,10 +436,7 @@
       font-variant-numeric: tabular-nums;
     }
 
-    /*
-      Три колонки держат Play геометрически по центру.
-      Левая и правая группы занимают равные боковые области.
-    */
+    /* Боковые кнопки не сдвигают Play от центра */
     .full-controls {
       display: grid;
       grid-template-columns: minmax(0, 1fr) 62px minmax(0, 1fr);
@@ -474,13 +451,8 @@
       gap: 8px;
     }
 
-    .control-side.left {
-      justify-content: flex-end;
-    }
-
-    .control-side.right {
-      justify-content: flex-start;
-    }
+    .control-side.left { justify-content: flex-end; }
+    .control-side.right { justify-content: flex-start; }
 
     .full-controls .transport-button,
     .full-controls .download-button,
@@ -508,9 +480,7 @@
       height: 19px;
     }
 
-    .full-controls .shuffle-button {
-      color: var(--muted);
-    }
+    .full-controls .shuffle-button { color: var(--muted); }
 
     .full-controls .shuffle-button.active {
       color: var(--accent);
@@ -548,9 +518,7 @@
       background: #000;
     }
 
-    .video-wrap.visible {
-      display: block;
-    }
+    .video-wrap.visible { display: block; }
 
     .video-wrap video {
       display: block;
@@ -578,18 +546,11 @@
         height: 36px;
       }
 
-      .mini-title {
-        font-size: 12px;
-      }
-
-      .mini-controls {
-        gap: 0;
-      }
+      .mini-title { font-size: 12px; }
+      .mini-controls { gap: 0; }
 
       .mini-controls .transport-button,
-      .mini-controls .shuffle-button {
-        width: 29px;
-      }
+      .mini-controls .shuffle-button { width: 29px; }
 
       .mini-controls .play-button {
         width: 35px;
@@ -605,9 +566,7 @@
         height: 56px;
       }
 
-      .control-side {
-        gap: 3px;
-      }
+      .control-side { gap: 3px; }
 
       .full-controls .transport-button,
       .full-controls .download-button,
@@ -624,21 +583,10 @@
     }
 
     @media (min-width: 700px) {
-      .page {
-        padding-top: 42px;
-      }
-
-      .playlist-header {
-        margin-bottom: 42px;
-      }
-
-      .track:hover {
-        transform: translateX(2px);
-      }
-
-      .mini-player {
-        bottom: 20px;
-      }
+      .page { padding-top: 42px; }
+      .playlist-header { margin-bottom: 42px; }
+      .track:hover { transform: translateX(2px); }
+      .mini-player { bottom: 20px; }
     }
   </style>
 </head>
@@ -657,26 +605,15 @@
   <audio id="audio" preload="metadata"></audio>
 
   <aside class="mini-player" id="mini-player" hidden>
-    <input
-      class="timeline mini-timeline"
-      id="mini-progress"
-      type="range"
-      min="0"
-      max="1000"
-      value="0"
-      aria-label="Позиция воспроизведения"
-    >
+    <input class="timeline mini-timeline" id="mini-progress"
+           type="range" min="0" max="1000" value="0"
+           aria-label="Позиция воспроизведения">
 
     <div class="mini-inner">
       <img class="mini-cover" id="mini-cover" alt="">
 
-      <div
-        class="mini-details"
-        id="open-player"
-        role="button"
-        tabindex="0"
-        aria-label="Открыть экран плеера"
-      >
+      <div class="mini-details" id="open-player" role="button" tabindex="0"
+           aria-label="Открыть экран плеера">
         <div class="mini-title" id="mini-title"></div>
         <div class="mini-time" id="mini-time">0:00 / --:--</div>
       </div>
@@ -687,15 +624,16 @@
                 title="Перемешать треки">
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"
-              stroke="currentColor" stroke-width="1.8"
-              stroke-linecap="round" stroke-linejoin="round"></path>
+                  stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round"></path>
           </svg>
         </button>
 
         <button class="transport-button" id="previous-track" type="button"
                 aria-label="Предыдущий трек" title="Предыдущий трек">
           <svg viewBox="0 0 16 16" aria-hidden="true">
-            <path fill="currentColor" d="M12.798 4.025a.33.33 0 0 0-.342.016L7.503 7.332V4.318a.33.33 0 0 0-.176-.293.33.33 0 0 0-.342.016l-5.54 3.681a.33.33 0 0 0-.15.278c0 .106.05.212.15.278l5.54 3.681c.11.074.24.071.342.016a.33.33 0 0 0 .176-.293V8.668l4.953 3.291c.11.074.24.071.341.016a.33.33 0 0 0 .176-.293V4.318a.33.33 0 0 0-.176-.293"></path>
+            <path fill="currentColor"
+              d="M12.798 4.025a.33.33 0 0 0-.342.016L7.503 7.332V4.318a.33.33 0 0 0-.176-.293.33.33 0 0 0-.342.016l-5.54 3.681a.33.33 0 0 0-.15.278c0 .106.05.212.15.278l5.54 3.681c.11.074.24.071.342.016a.33.33 0 0 0 .176-.293V8.668l4.953 3.291c.11.074.24.071.341.016a.33.33 0 0 0 .176-.293V4.318a.33.33 0 0 0-.176-.293"></path>
           </svg>
         </button>
 
@@ -705,23 +643,25 @@
         <button class="transport-button" id="next-track" type="button"
                 aria-label="Следующий трек" title="Следующий трек">
           <svg viewBox="0 0 16 16" aria-hidden="true">
-            <path fill="currentColor" d="M3.202 4.025a.33.33 0 0 1 .342.016l4.953 3.291V4.318a.33.33 0 0 1 .176-.293.33.33 0 0 1 .342.016l5.54 3.681a.33.33 0 0 1 .15.278c0 .106-.05.212-.15.278l-5.54 3.681a.33.33 0 0 1-.342.016.33.33 0 0 1-.176-.293V8.668l-4.953 3.291a.33.33 0 0 1-.341.016.33.33 0 0 1-.176-.293V4.318a.33.33 0 0 1 .176-.293"></path>
+            <path fill="currentColor"
+              d="M3.202 4.025a.33.33 0 0 1 .342.016l4.953 3.291V4.318a.33.33 0 0 1 .176-.293.33.33 0 0 1 .342.016l5.54 3.681a.33.33 0 0 1 .15.278c0 .106-.05.212-.15.278l-5.54 3.681a.33.33 0 0 1-.342.016.33.33 0 0 1-.176-.293V8.668l-4.953 3.291a.33.33 0 0 1-.341.016.33.33 0 0 1-.176-.293V4.318a.33.33 0 0 1 .176-.293"></path>
           </svg>
         </button>
       </div>
     </div>
   </aside>
 
-  <section class="player-screen" id="player-screen" aria-label="Плеер" aria-hidden="true">
+  <section class="player-screen" id="player-screen"
+           aria-label="Плеер" aria-hidden="true">
     <div class="player-content">
       <div class="screen-top">
         <button class="close-button" id="close-player" type="button"
                 aria-label="Закрыть плеер">
-          <!-- Галочка вниз -->
+          <!-- Аккуратная галочка вниз -->
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="m6.5 9 5.5 5.5L17.5 9"
-              stroke="currentColor" stroke-width="1.8"
-              stroke-linecap="round" stroke-linejoin="round"></path>
+                  stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round"></path>
           </svg>
         </button>
 
@@ -737,31 +677,27 @@
         <span id="full-duration">--:--</span>
       </div>
 
-      <input
-        class="timeline full-timeline"
-        id="full-progress"
-        type="range"
-        min="0"
-        max="1000"
-        value="0"
-        aria-label="Позиция воспроизведения"
-      >
+      <input class="timeline" id="full-progress" type="range"
+             min="0" max="1000" value="0"
+             aria-label="Позиция воспроизведения">
 
       <div class="full-controls">
         <div class="control-side left">
           <a class="download-button" id="download-track" href="#"
-             aria-label="Скачать трек" title="Скачать трек" aria-disabled="true">
+             aria-label="Скачать трек" title="Скачать трек"
+             aria-disabled="true">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M12 3v11m0 0 4-4m-4 4-4-4M5 15v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"
-                stroke="currentColor" stroke-width="1.8"
-                stroke-linecap="round" stroke-linejoin="round"></path>
+                    stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round"></path>
             </svg>
           </a>
 
           <button class="transport-button" id="full-previous" type="button"
                   aria-label="Предыдущий трек" title="Предыдущий трек">
             <svg viewBox="0 0 16 16" aria-hidden="true">
-              <path fill="currentColor" d="M12.798 4.025a.33.33 0 0 0-.342.016L7.503 7.332V4.318a.33.33 0 0 0-.176-.293.33.33 0 0 0-.342.016l-5.54 3.681a.33.33 0 0 0-.15.278c0 .106.05.212.15.278l5.54 3.681c.11.074.24.071.342.016a.33.33 0 0 0 .176-.293V8.668l4.953 3.291c.11.074.24.071.341.016a.33.33 0 0 0 .176-.293V4.318a.33.33 0 0 0-.176-.293"></path>
+              <path fill="currentColor"
+                d="M12.798 4.025a.33.33 0 0 0-.342.016L7.503 7.332V4.318a.33.33 0 0 0-.176-.293.33.33 0 0 0-.342.016l-5.54 3.681a.33.33 0 0 0-.15.278c0 .106.05.212.15.278l5.54 3.681c.11.074.24.071.342.016a.33.33 0 0 0 .176-.293V8.668l4.953 3.291c.11.074.24.071.341.016a.33.33 0 0 0 .176-.293V4.318a.33.33 0 0 0-.176-.293"></path>
             </svg>
           </button>
         </div>
@@ -773,7 +709,8 @@
           <button class="transport-button" id="full-next" type="button"
                   aria-label="Следующий трек" title="Следующий трек">
             <svg viewBox="0 0 16 16" aria-hidden="true">
-              <path fill="currentColor" d="M3.202 4.025a.33.33 0 0 1 .342.016l4.953 3.291V4.318a.33.33 0 0 1 .176-.293.33.33 0 0 1 .342.016l5.54 3.681a.33.33 0 0 1 .15.278c0 .106-.05.212-.15.278l-5.54 3.681a.33.33 0 0 1-.342.016.33.33 0 0 1-.176-.293V8.668l-4.953 3.291a.33.33 0 0 1-.341.016.33.33 0 0 1-.176-.293V4.318a.33.33 0 0 1 .176-.293"></path>
+              <path fill="currentColor"
+                d="M3.202 4.025a.33.33 0 0 1 .342.016l4.953 3.291V4.318a.33.33 0 0 1 .176-.293.33.33 0 0 1 .342.016l5.54 3.681a.33.33 0 0 1 .15.278c0 .106-.05.212-.15.278l-5.54 3.681a.33.33 0 0 1-.342.016.33.33 0 0 1-.176-.293V8.668l-4.953 3.291a.33.33 0 0 1-.341.016.33.33 0 0 1-.176-.293V4.318a.33.33 0 0 1 .176-.293"></path>
             </svg>
           </button>
 
@@ -782,8 +719,8 @@
                   title="Перемешать треки">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"
-                stroke="currentColor" stroke-width="1.8"
-                stroke-linecap="round" stroke-linejoin="round"></path>
+                    stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round"></path>
             </svg>
           </button>
         </div>
@@ -846,7 +783,6 @@
 
       const minutes = Math.floor(seconds / 60);
       const remainder = Math.floor(seconds % 60).toString().padStart(2, "0");
-
       return `${minutes}:${remainder}`;
     }
 
@@ -868,6 +804,7 @@
 
     function displayDuration(value) {
       if (typeof value === "string" && value.trim()) return value.trim();
+
       const seconds = parseDuration(value);
       return seconds === null ? "--:--" : formatTime(seconds);
     }
@@ -875,6 +812,7 @@
     function getDurationSeconds() {
       const fromJson = parseDuration(currentTrack?.duration);
       if (fromJson !== null) return fromJson;
+
       return Number.isFinite(audio.duration) ? audio.duration : null;
     }
 
@@ -948,7 +886,7 @@
       try {
         navigator.mediaSession.setActionHandler(action, handler);
       } catch {
-        // Действие может не поддерживаться браузером.
+        // Некоторые браузеры не поддерживают отдельные Media Session actions.
       }
     }
 
@@ -984,7 +922,6 @@
           artwork
         });
 
-        // Сохраняем активное состояние во время смены источника.
         navigator.mediaSession.playbackState = "playing";
       } catch (error) {
         console.warn("Не удалось обновить данные экрана блокировки:", error);
@@ -1081,11 +1018,7 @@
 
       if (!fromQueue) setQueueForTrack(track);
 
-      /*
-       * Сначала обновляем метаданные и сохраняем playbackState,
-       * затем меняем audio source. Это снижает вероятность мигания
-       * плеера на экране блокировки.
-       */
+      // Обновляем карточку блокировки до смены аудиоисточника.
       updateMediaSession(track);
 
       audio.pause();
@@ -1154,7 +1087,8 @@
       if (queueIndex < 0) {
         queueIndex = direction > 0 ? 0 : playQueue.length - 1;
       } else {
-        queueIndex = (queueIndex + direction + playQueue.length) % playQueue.length;
+        queueIndex =
+          (queueIndex + direction + playQueue.length) % playQueue.length;
       }
 
       selectTrack(playQueue[queueIndex], true);
@@ -1163,4 +1097,144 @@
     function toggleShuffle() {
       shuffleEnabled = !shuffleEnabled;
 
-      if (playlist
+      if (playlist?.tracks?.length) {
+        if (shuffleEnabled && currentTrack) {
+          playQueue = [
+            currentTrack,
+            ...shuffleTracks(
+              playlist.tracks.filter((item) => item !== currentTrack)
+            )
+          ];
+          queueIndex = 0;
+        } else if (shuffleEnabled) {
+          playQueue = shuffleTracks(playlist.tracks);
+          queueIndex = -1;
+        } else {
+          playQueue = [...playlist.tracks];
+          queueIndex = currentTrack
+            ? playQueue.indexOf(currentTrack)
+            : -1;
+        }
+      }
+
+      updateShuffleButtons();
+    }
+
+    function updateProgress() {
+      const current = audio.currentTime || 0;
+      const duration = getDurationSeconds();
+
+      $("#mini-time").textContent =
+        `${formatTime(current)} / ${displayDuration(currentTrack?.duration)}`;
+      $("#full-current-time").textContent = formatTime(current);
+      $("#full-duration").textContent = displayDuration(currentTrack?.duration);
+
+      updateTimeline($("#mini-progress"), current, duration);
+      updateTimeline($("#full-progress"), current, duration);
+      updateMediaPosition();
+    }
+
+    function seek(event) {
+      const duration = getDurationSeconds();
+      if (!duration || duration <= 0) return;
+
+      audio.currentTime = Number(event.currentTarget.value) / 1000 * duration;
+      updateProgress();
+    }
+
+    function openPlayer() {
+      if (!currentTrack) return;
+      playerScreen.classList.add("open");
+      playerScreen.setAttribute("aria-hidden", "false");
+      document.body.classList.add("player-open");
+    }
+
+    function closePlayer() {
+      playerScreen.classList.remove("open");
+      playerScreen.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("player-open");
+      video.pause();
+    }
+
+    $("#mini-play").addEventListener("click", togglePlayback);
+    $("#full-play").addEventListener("click", togglePlayback);
+
+    $("#previous-track").addEventListener("click", () => changeTrack(-1));
+    $("#full-previous").addEventListener("click", () => changeTrack(-1));
+    $("#next-track").addEventListener("click", () => changeTrack(1));
+    $("#full-next").addEventListener("click", () => changeTrack(1));
+
+    $("#mini-shuffle").addEventListener("click", toggleShuffle);
+    $("#full-shuffle").addEventListener("click", toggleShuffle);
+
+    $("#mini-progress").addEventListener("input", seek);
+    $("#full-progress").addEventListener("input", seek);
+
+    $("#open-player").addEventListener("click", openPlayer);
+    $("#open-player").addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openPlayer();
+      }
+    });
+
+    $("#close-player").addEventListener("click", closePlayer);
+
+    $("#video-toggle").addEventListener("click", () => {
+      if (!currentTrack?.video) return;
+
+      audio.pause();
+      video.src = new URL(currentTrack.video, document.baseURI).href;
+      video.load();
+      $("#video-wrap").classList.add("visible");
+
+      video.play().catch((error) => {
+        console.warn("Видео не запустилось:", error);
+      });
+    });
+
+    audio.addEventListener("play", () => {
+      switchingTrack = false;
+      setPlayButtons(true);
+    });
+
+    audio.addEventListener("pause", () => {
+      // При смене источника не переключаем состояние Media Session в paused.
+      if (!switchingTrack) setPlayButtons(false);
+    });
+
+    audio.addEventListener("loadedmetadata", updateProgress);
+    audio.addEventListener("durationchange", updateProgress);
+    audio.addEventListener("timeupdate", updateProgress);
+
+    audio.addEventListener("ended", () => {
+      if (playlist?.tracks?.length) {
+        changeTrack(1);
+      } else {
+        setPlayButtons(false);
+      }
+    });
+
+    video.addEventListener("play", () => {
+      audio.pause();
+    });
+
+    fetch("playlist.json", { cache: "no-store" })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `Не удалось загрузить playlist.json (HTTP ${response.status}).`
+          );
+        }
+
+        return response.json();
+      })
+      .then(renderPlaylist)
+      .catch((error) => {
+        console.error(error);
+        $("#message").textContent =
+          `${error.message} Проверь, что playlist.json лежит рядом с index.html и содержит корректный JSON.`;
+      });
+  </script>
+</body>
+</html>
