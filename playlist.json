@@ -8,7 +8,8 @@
       "year": 2019,
       "audio": "music_tracks/2019.mp3",
       "cover": "images/demo-cover.jpg",
-      "lyrics": ""
+      "duration": "2:48",
+      "video": "videos/demo.mp4"
     },
     {
       "id": "cba-family-2020",
@@ -16,7 +17,8 @@
       "year": 2020,
       "audio": "music_tracks/2020 СВА - семья 2020.mp3",
       "cover": "images/demo-cover.jpg",
-      "lyrics": ""
+      "duration": "2:48",
+      "video": "videos/demo.mp4"
     },
     {
       "id": "directors-2021",
