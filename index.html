@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#101113">
-  <title>Библиотека треков</title>
+  <title>Библиотека СВА</title>
 
   <style>
     :root {
@@ -13,7 +13,6 @@
       --text: #f5f5f5;
       --muted: #9b9da3;
       --accent: #c7f477;
-      --panel: #202125;
     }
 
     * {
@@ -62,15 +61,17 @@
       padding-top: max(28px, env(safe-area-inset-top));
     }
 
+    /* Обложка, название и количество треков — сверху вниз */
     .playlist-header {
       display: flex;
-      align-items: end;
-      gap: 20px;
-      margin-bottom: 34px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 32px;
     }
 
     .cover {
-      width: clamp(124px, 36vw, 220px);
+      width: min(72vw, 280px);
       aspect-ratio: 1;
       flex: 0 0 auto;
       border-radius: 20px;
@@ -79,24 +80,16 @@
       box-shadow: 0 18px 55px #0008;
     }
 
-    .eyebrow {
-      margin-bottom: 7px;
-      color: var(--muted);
-      font-size: 12px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
     h1 {
       margin: 0;
-      font-size: clamp(27px, 7vw, 46px);
+      font-size: clamp(30px, 7vw, 46px);
       line-height: 1.06;
       letter-spacing: -.04em;
       overflow-wrap: anywhere;
     }
 
     .track-count {
-      margin-top: 10px;
+      margin-top: -8px;
       color: var(--muted);
       font-size: 14px;
     }
@@ -110,7 +103,7 @@
     .track {
       display: flex;
       align-items: center;
-      gap: 13px;
+      gap: 14px;
       width: 100%;
       min-height: 70px;
       padding: 9px 12px;
@@ -128,14 +121,6 @@
 
     .track:active {
       transform: scale(.99);
-    }
-
-    .track-number {
-      width: 22px;
-      flex: 0 0 22px;
-      color: var(--muted);
-      text-align: center;
-      font-size: 14px;
     }
 
     .track-cover {
@@ -159,6 +144,13 @@
       font-weight: 600;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+
+    .track-duration {
+      flex: 0 0 auto;
+      color: var(--muted);
+      font-size: 13px;
+      font-variant-numeric: tabular-nums;
     }
 
     .message {
@@ -254,7 +246,7 @@
       border-radius: 50%;
       background: var(--accent);
       color: #151711;
-      transition: transform .15s ease, filter .15s ease;
+      transition: transform .15s ease;
     }
 
     .play-button:active {
@@ -448,12 +440,9 @@
 <body>
   <main class="page">
     <header class="playlist-header">
-      <img class="cover" id="cover" alt="Обложка плейлиста">
-      <div>
-        <div class="eyebrow">Плейлист</div>
-        <h1 id="playlist-title">Загрузка…</h1>
-        <div class="track-count" id="track-count"></div>
-      </div>
+      <img class="cover" id="cover" alt="Обложка библиотеки">
+      <h1 id="playlist-title">Библиотека СВА</h1>
+      <div class="track-count" id="track-count"></div>
     </header>
 
     <section id="track-list" aria-label="Список треков"></section>
@@ -466,27 +455,50 @@
     <div class="mini-inner">
       <img class="mini-cover" id="mini-cover" alt="">
 
-      <div class="mini-details" id="open-player" role="button" tabindex="0"
-           aria-label="Открыть экран плеера">
+      <div
+        class="mini-details"
+        id="open-player"
+        role="button"
+        tabindex="0"
+        aria-label="Открыть экран плеера"
+      >
         <div class="mini-title" id="mini-title"></div>
         <div class="mini-time" id="mini-time">0:00 / 0:00</div>
       </div>
 
       <div class="mini-controls">
-        <button class="transport-button" id="previous-track" type="button"
-                aria-label="Предыдущий трек">
+        <button
+          class="transport-button"
+          id="previous-track"
+          type="button"
+          aria-label="Предыдущий трек"
+        >
           <svg viewBox="0 0 16 16" aria-hidden="true">
-            <path fill="currentColor" d="M12.798 4.025a.33.33 0 0 0-.342.016L7.503 7.332V4.318a.33.33 0 0 0-.176-.293.33.33 0 0 0-.342.016l-5.54 3.681a.33.33 0 0 0-.15.278c0 .106.05.212.15.278l5.54 3.681c.11.074.24.071.342.016a.33.33 0 0 0 .176-.293V8.668l4.953 3.291c.11.074.24.071.341.016a.33.33 0 0 0 .176-.293V4.318a.33.33 0 0 0-.176-.293"></path>
+            <path
+              fill="currentColor"
+              d="M12.798 4.025a.33.33 0 0 0-.342.016L7.503 7.332V4.318a.33.33 0 0 0-.176-.293.33.33 0 0 0-.342.016l-5.54 3.681a.33.33 0 0 0-.15.278c0 .106.05.212.15.278l5.54 3.681c.11.074.24.071.342.016a.33.33 0 0 0 .176-.293V8.668l4.953 3.291c.11.074.24.071.341.016a.33.33 0 0 0 .176-.293V4.318a.33.33 0 0 0-.176-.293"
+            ></path>
           </svg>
         </button>
 
-        <button class="play-button" id="mini-play" type="button"
-                aria-label="Воспроизвести"></button>
+        <button
+          class="play-button"
+          id="mini-play"
+          type="button"
+          aria-label="Воспроизвести"
+        ></button>
       </div>
     </div>
 
-    <input class="progress" id="progress" type="range" min="0" max="1000" value="0"
-           aria-label="Позиция воспроизведения">
+    <input
+      class="progress"
+      id="progress"
+      type="range"
+      min="0"
+      max="1000"
+      value="0"
+      aria-label="Позиция воспроизведения"
+    >
   </aside>
 
   <section class="player-screen" id="player-screen" aria-label="Плеер">
@@ -501,20 +513,38 @@
       <h2 class="full-title" id="full-title"></h2>
 
       <div class="full-controls">
-        <button class="transport-button" id="full-previous" type="button"
-                aria-label="Предыдущий трек">
+        <button
+          class="transport-button"
+          id="full-previous"
+          type="button"
+          aria-label="Предыдущий трек"
+        >
           <svg viewBox="0 0 16 16" aria-hidden="true">
-            <path fill="currentColor" d="M12.798 4.025a.33.33 0 0 0-.342.016L7.503 7.332V4.318a.33.33 0 0 0-.176-.293.33.33 0 0 0-.342.016l-5.54 3.681a.33.33 0 0 0-.15.278c0 .106.05.212.15.278l5.54 3.681c.11.074.24.071.342.016a.33.33 0 0 0 .176-.293V8.668l4.953 3.291c.11.074.24.071.341.016a.33.33 0 0 0 .176-.293V4.318a.33.33 0 0 0-.176-.293"></path>
+            <path
+              fill="currentColor"
+              d="M12.798 4.025a.33.33 0 0 0-.342.016L7.503 7.332V4.318a.33.33 0 0 0-.176-.293.33.33 0 0 0-.342.016l-5.54 3.681a.33.33 0 0 0-.15.278c0 .106.05.212.15.278l5.54 3.681c.11.074.24.071.342.016a.33.33 0 0 0 .176-.293V8.668l4.953 3.291c.11.074.24.071.341.016a.33.33 0 0 0 .176-.293V4.318a.33.33 0 0 0-.176-.293"
+            ></path>
           </svg>
         </button>
 
-        <button class="play-button" id="full-play" type="button"
-                aria-label="Воспроизвести"></button>
+        <button
+          class="play-button"
+          id="full-play"
+          type="button"
+          aria-label="Воспроизвести"
+        ></button>
 
-        <button class="transport-button" id="next-track" type="button"
-                aria-label="Следующий трек">
+        <button
+          class="transport-button"
+          id="next-track"
+          type="button"
+          aria-label="Следующий трек"
+        >
           <svg viewBox="0 0 16 16" aria-hidden="true">
-            <path fill="currentColor" d="M3.202 4.025a.33.33 0 0 1 .342.016l4.953 3.291V4.318a.33.33 0 0 1 .176-.293.33.33 0 0 1 .342.016l5.54 3.681a.33.33 0 0 1 .15.278c0 .106-.05.212-.15.278l-5.54 3.681a.33.33 0 0 1-.342.016.33.33 0 0 1-.176-.293V8.668l-4.953 3.291a.33.33 0 0 1-.341.016.33.33 0 0 1-.176-.293V4.318a.33.33 0 0 1 .176-.293"></path>
+            <path
+              fill="currentColor"
+              d="M3.202 4.025a.33.33 0 0 1 .342.016l4.953 3.291V4.318a.33.33 0 0 1 .176-.293.33.33 0 0 1 .342.016l5.54 3.681a.33.33 0 0 1 .15.278c0 .106-.05.212-.15.278l-5.54 3.681a.33.33 0 0 1-.342.016.33.33 0 0 1-.176-.293V8.668l-4.953 3.291a.33.33 0 0 1-.341.016.33.33 0 0 1-.176-.293V4.318a.33.33 0 0 1 .176-.293"
+            ></path>
           </svg>
         </button>
       </div>
@@ -542,19 +572,27 @@
 
     const playIcon = `
       <svg viewBox="0 0 20 20" aria-hidden="true">
-        <path fill="currentColor" d="M6 4.9c0-.7.8-1.1 1.4-.7l9 5.1a.8.8 0 0 1 0 1.4l-9 5.1c-.6.4-1.4 0-1.4-.7V4.9Z"/>
+        <path
+          fill="currentColor"
+          d="M6 4.9c0-.7.8-1.1 1.4-.7l9 5.1a.8.8 0 0 1 0 1.4l-9 5.1c-.6.4-1.4 0-1.4-.7V4.9Z"
+        ></path>
       </svg>
     `;
 
     const pauseIcon = `
       <svg viewBox="0 0 20 20" aria-hidden="true">
-        <path fill="currentColor" d="M8.25 3.09v13.82a.415.415 0 0 1-.417.416H4.81a.415.415 0 0 1-.417-.416V3.09a.415.415 0 0 1 .417-.416h3.023a.415.415 0 0 1 .416.416m7.358 0v13.82a.415.415 0 0 1-.417.416h-3.022a.416.416 0 0 1-.417-.416V3.09a.415.415 0 0 1 .417-.416h3.022a.415.415 0 0 1 .417.416"/>
+        <path
+          fill="currentColor"
+          d="M8.25 3.09v13.82a.415.415 0 0 1-.417.416H4.81a.415.415 0 0 1-.417-.416V3.09a.415.415 0 0 1 .417-.416h3.023a.415.415 0 0 1 .416.416m7.358 0v13.82a.415.415 0 0 1-.417.416h-3.022a.416.416 0 0 1-.417-.416V3.09a.415.415 0 0 1 .417-.416h3.022a.415.415 0 0 1 .417.416"
+        ></path>
       </svg>
     `;
 
     function setImage(img, path) {
-      if (!img || !path) {
-        if (img) img.removeAttribute("src");
+      if (!img) return;
+
+      if (!path) {
+        img.removeAttribute("src");
         return;
       }
 
@@ -575,6 +613,28 @@
       return `${minutes}:${remainder}`;
     }
 
+    function loadTrackDuration(track, element) {
+      if (!track.audio) {
+        element.textContent = "--:--";
+        return;
+      }
+
+      const probe = new Audio();
+      probe.preload = "metadata";
+
+      probe.addEventListener("loadedmetadata", () => {
+        element.textContent = formatTime(probe.duration);
+        probe.removeAttribute("src");
+      }, { once: true });
+
+      probe.addEventListener("error", () => {
+        element.textContent = "--:--";
+      }, { once: true });
+
+      probe.src = new URL(track.audio, document.baseURI).href;
+      probe.load();
+    }
+
     function setPlayButtons(playing) {
       const icon = playing ? pauseIcon : playIcon;
 
@@ -592,9 +652,9 @@
 
       playlist = data;
 
-      const title = data.title || "Мой плейлист";
-      document.title = title;
-      $("#playlist-title").textContent = title;
+      // Название фиксировано по запросу.
+      document.title = "Библиотека СВА";
+      $("#playlist-title").textContent = "Библиотека СВА";
       $("#track-count").textContent =
         `${data.tracks.length} ${data.tracks.length === 1 ? "трек" : "треков"}`;
 
@@ -621,8 +681,6 @@
       const list = $("#track-list");
       list.replaceChildren();
 
-      let number = 0;
-
       for (const year of years) {
         const heading = document.createElement("h2");
         heading.className = "year-heading";
@@ -630,15 +688,9 @@
         list.append(heading);
 
         for (const track of groups.get(year)) {
-          number++;
-
           const row = document.createElement("button");
           row.className = "track";
           row.type = "button";
-
-          const trackNumber = document.createElement("span");
-          trackNumber.className = "track-number";
-          trackNumber.textContent = number;
 
           const trackCover = document.createElement("img");
           trackCover.className = "track-cover";
@@ -652,15 +704,22 @@
           trackTitle.className = "track-title";
           trackTitle.textContent = track.title || "Без названия";
 
+          const duration = document.createElement("span");
+          duration.className = "track-duration";
+          duration.textContent = "…";
+
           info.append(trackTitle);
-          row.append(trackNumber, trackCover, info);
+          row.append(trackCover, info, duration);
+
           row.addEventListener("click", () => selectTrack(track));
           list.append(row);
+
+          loadTrackDuration(track, duration);
         }
       }
 
       if (data.tracks.length === 0) {
-        $("#message").textContent = "В плейлисте пока нет треков.";
+        $("#message").textContent = "В библиотеке пока нет треков.";
       } else {
         $("#message").textContent = "";
       }
@@ -678,11 +737,11 @@
       audio.src = track.audio;
       audio.load();
 
-      const trackTitle = track.title || "Без названия";
+      const title = track.title || "Без названия";
       const coverPath = track.cover || playlist.cover;
 
-      $("#mini-title").textContent = trackTitle;
-      $("#full-title").textContent = trackTitle;
+      $("#mini-title").textContent = title;
+      $("#full-title").textContent = title;
 
       setImage($("#mini-cover"), coverPath);
       setImage($("#big-cover"), coverPath);
@@ -767,11 +826,15 @@
         console.warn("Видео не запустилось:", error);
       });
 
-      $("#video-wrap").scrollIntoView({ behavior: "smooth", block: "center" });
+      $("#video-wrap").scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
     });
 
     audio.addEventListener("play", () => setPlayButtons(true));
     audio.addEventListener("pause", () => setPlayButtons(false));
+
     audio.addEventListener("ended", () => {
       if (playlist?.tracks?.length) {
         changeTrack(1);
@@ -782,7 +845,9 @@
 
     video.addEventListener("play", () => setPlayButtons(true));
     video.addEventListener("pause", () => {
-      if (video.paused && audio.paused) setPlayButtons(false);
+      if (video.paused && audio.paused) {
+        setPlayButtons(false);
+      }
     });
 
     audio.addEventListener("timeupdate", () => {
@@ -810,14 +875,15 @@
             `Не удалось загрузить playlist.json (HTTP ${response.status}).`
           );
         }
+
         return response.json();
       })
       .then(renderPlaylist)
       .catch((error) => {
         console.error(error);
-        $("#playlist-title").textContent = "Не удалось загрузить плейлист";
+        $("#playlist-title").textContent = "Библиотека СВА";
         $("#message").textContent =
-          `${error.message} Проверь, что playlist.json лежит рядом с index.html и содержит корректный JSON.`;
+          `${error.message} Проверь, что playlist.json находится рядом с index.html и содержит корректный JSON.`;
       });
   </script>
 </body>
