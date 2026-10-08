@@ -95,9 +95,12 @@
         </div>
       </div>
 
-      <button class="video-toggle" id="video-toggle" type="button" hidden>
-        ▶ Смотреть клип
-      </button>
+      <section class="clip-section" id="clip-section" hidden>
+        <h3 class="clip-heading">Клип к аудио</h3>
+        <div class="video-wrap" id="video-wrap">
+          <video id="video" controls playsinline preload="metadata"></video>
+        </div>
+      </section>
 
       <div class="video-wrap" id="video-wrap">
         <video id="video" controls playsinline preload="metadata"></video>

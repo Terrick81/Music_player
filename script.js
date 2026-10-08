@@ -346,7 +346,17 @@ function selectTrack(track, fromQueue = false) {
   download.download = track.audio.split("/").pop().split("\\").pop();
   download.setAttribute("aria-disabled", "false");
 
-  $("#video-toggle").hidden = !track.video;
+  const clipSection = $("#clip-section");
+
+if (track.video) {
+  video.src = new URL(track.video, document.baseURI).href;
+  video.load();
+  clipSection.hidden = false;
+} else {
+  video.removeAttribute("src");
+  video.load();
+  clipSection.hidden = true;
+}
   miniPlayer.hidden = false;
   $("#mini-time").textContent = `0:00 / ${displayDuration(track.duration)}`;
   $("#full-current-time").textContent = "0:00";
@@ -487,18 +497,6 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-$("#video-toggle").addEventListener("click", () => {
-  if (!currentTrack?.video) return;
-
-  audio.pause();
-  video.src = new URL(currentTrack.video, document.baseURI).href;
-  video.load();
-  $("#video-wrap").classList.add("visible");
-
-  video.play().catch((error) => {
-    console.warn("Видео не запустилось:", error);
-  });
-});
 
 audio.addEventListener("play", () => {
   switchingTrack = false;
